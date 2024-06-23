@@ -29,15 +29,6 @@
             <version>1.18.32</version>
             <scope>provided</scope>
         </dependency>
-
     </dependencies>
-
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>Fleen Corp Package</name>
-            <url>https://maven.pkg.github.com/fleencorp/api-service</url>
-        </repository>
-    </distributionManagement>
 
 </project>
