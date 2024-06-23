@@ -1,6 +1,6 @@
 package com.fleencorp.constant.type;
 
-import com.fleencorp.fleenhistoria.api.ApiParameter;
+import com.fleencorp.constant.base.ApiParameter;
 import lombok.Getter;
 
 @Getter

@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.List;
 
-import static com.fleencorp.fleenhistoria.util.datetime.DateFormatUtil.*;
+import static com.fleencorp.util.datetime.DateFormatUtil.*;
 import static java.util.Objects.nonNull;
 import static java.util.concurrent.TimeUnit.HOURS;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
