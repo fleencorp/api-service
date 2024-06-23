@@ -32,23 +32,12 @@
 
     </dependencies>
 
-    <profiles>
-        <profile>
+    <distributionManagement>
+        <repository>
             <id>github</id>
-            <activation>
-                <property>
-                    <name>useGitHubPackages</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <distributionManagement>
-                <repository>
-                    <id>github</id>
-                    <name>Fleen Corp Package</name>
-                    <url>https://maven.pkg.github.com/fleencorp/api-service</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-    </profiles>
+            <name>Fleen Corp Package</name>
+            <url>https://maven.pkg.github.com/fleencorp/api-service</url>
+        </repository>
+    </distributionManagement>
 
 </project>
