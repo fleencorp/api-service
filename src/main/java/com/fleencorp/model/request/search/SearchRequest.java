@@ -17,6 +17,9 @@ import static com.fleencorp.util.datetime.DateFormatUtil.DATE;
 /**
  * Represents a search request with pagination and sorting details.
  * This class encapsulates parameters for searching, pagination, and sorting in a request.
+ *
+ * @author Yusuf Alamu Musa
+ * @version 1.0
  */
 @SuperBuilder
 @Getter
