@@ -23,7 +23,7 @@ public class YearValidator implements ConstraintValidator<ValidYear, String> {
    */
   @Override
   public void initialize(ValidYear constraintAnnotation) {
-    this.pattern = Pattern.compile(constraintAnnotation.pattern());
+    pattern = Pattern.compile(constraintAnnotation.pattern());
   }
 
 

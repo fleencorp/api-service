@@ -110,7 +110,7 @@ public class DateTimeUtil {
     return null;
   }
 
-  public static boolean isDateOrTimeValid(String dateTime, String pattern) {
+  public static boolean isDateTimeValid(String dateTime, String pattern) {
     if (nonNull(dateTime)) {
       try {
         final DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern);
@@ -123,6 +123,10 @@ public class DateTimeUtil {
     return false;
   }
 
+  public static boolean isDateOrTimeValid(String dateTime, String pattern) {
+    return isDateTimeValid(dateTime, pattern);
+  }
+
   public static boolean isDateFuture(String date, String pattern) {
     if (nonNull(date)) {
       try {
@@ -132,8 +136,9 @@ public class DateTimeUtil {
       } catch (DateTimeParseException ex) {
         log.error(ex.getMessage(), ex);
       }
+      return false;
     }
-    return false;
+    return true;
   }
 
   public static LocalDate toDate(String date) {
