@@ -90,6 +90,9 @@
             <id>github</id>
             <name>Fleen Corp Package</name>
             <url>https://maven.pkg.github.com/fleencorp/api-service</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </distributionManagement>
 
