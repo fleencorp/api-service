@@ -1,6 +1,6 @@
 package com.fleencorp.base.validator;
 
-import com.fleencorp.base.validator.impl.EmailAddressExistValidator;
+import com.fleencorp.base.validator.impl.EmailAddressAlreadyExistValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -13,10 +13,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 
 @Documented
-@Constraint(validatedBy = EmailAddressExistValidator.class)
+@Constraint(validatedBy = EmailAddressAlreadyExistValidator.class)
 @Target({ FIELD })
 @Retention(RUNTIME)
-public @interface EmailAddressExist {
+public @interface EmailAddressAlreadyExist {
 
   String message() default "Email Address already exists";
 

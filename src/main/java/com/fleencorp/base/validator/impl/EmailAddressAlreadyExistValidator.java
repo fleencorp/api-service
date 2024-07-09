@@ -1,7 +1,7 @@
 package com.fleencorp.base.validator.impl;
 
 import com.fleencorp.base.service.EmailService;
-import com.fleencorp.base.validator.EmailAddressExist;
+import com.fleencorp.base.validator.EmailAddressAlreadyExist;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ import static java.util.Objects.nonNull;
  * @author Yusuf Alamu Musa
  */
 @Component
-public class EmailAddressExistValidator implements ConstraintValidator<EmailAddressExist, String> {
+public class EmailAddressAlreadyExistValidator implements ConstraintValidator<EmailAddressAlreadyExist, String> {
 
   private final EmailService emailService;
 
@@ -23,7 +23,7 @@ public class EmailAddressExistValidator implements ConstraintValidator<EmailAddr
    *
    * @param emailService the email service used to check for existing email addresses.
    */
-  public EmailAddressExistValidator(EmailService emailService) {
+  public EmailAddressAlreadyExistValidator(EmailService emailService) {
     this.emailService = emailService;
   }
 
@@ -34,7 +34,7 @@ public class EmailAddressExistValidator implements ConstraintValidator<EmailAddr
    * @param constraintAnnotation the annotation instance for a given constraint declaration.
    */
   @Override
-  public void initialize(EmailAddressExist constraintAnnotation) {}
+  public void initialize(EmailAddressAlreadyExist constraintAnnotation) {}
 
 
   /**
