@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DateRange {
 
-  String message() default "Start date should  be before or equal to end date";
+  String message() default "Start date should be before or equal to end date";
 
   Class<?>[] groups() default {};
 
