@@ -18,7 +18,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 public @interface EmailAddressAlreadyExist {
 
-  String message() default "Email Address already exists";
+  String message() default "Email Address already exist and in use.";
 
   Class<?>[] groups() default {};
 

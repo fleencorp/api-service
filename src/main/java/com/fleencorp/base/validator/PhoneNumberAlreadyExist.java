@@ -1,6 +1,6 @@
 package com.fleencorp.base.validator;
 
-import com.fleencorp.base.validator.impl.PhoneNumberExistsValidator;
+import com.fleencorp.base.validator.impl.PhoneNumberAlreadyExistValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -12,12 +12,12 @@ import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Documented
-@Constraint(validatedBy = PhoneNumberExistsValidator.class)
+@Constraint(validatedBy = PhoneNumberAlreadyExistValidator.class)
 @Target({ FIELD })
 @Retention(RUNTIME)
-public @interface PhoneNumberExist {
+public @interface PhoneNumberAlreadyExist {
 
-  String message() default "Phone Number already exists";
+  String message() default "Phone Number already exist and in use.";
 
   Class<?>[] groups() default {};
 

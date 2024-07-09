@@ -1,7 +1,7 @@
 package com.fleencorp.base.validator.impl;
 
 import com.fleencorp.base.service.PhoneService;
-import com.fleencorp.base.validator.PhoneNumberExist;
+import com.fleencorp.base.validator.PhoneNumberAlreadyExist;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ import static java.util.Objects.nonNull;
  * @version 1.0
  */
 @Component
-public class PhoneNumberExistsValidator implements ConstraintValidator<PhoneNumberExist, String> {
+public class PhoneNumberAlreadyExistValidator implements ConstraintValidator<PhoneNumberAlreadyExist, String> {
 
   private final PhoneService phoneService;
 
@@ -24,7 +24,7 @@ public class PhoneNumberExistsValidator implements ConstraintValidator<PhoneNumb
    *
    * @param phoneService the service used to check if a phone number exists
    */
-  public PhoneNumberExistsValidator(PhoneService phoneService) {
+  public PhoneNumberAlreadyExistValidator(PhoneService phoneService) {
     this.phoneService = phoneService;
   }
 
@@ -34,7 +34,7 @@ public class PhoneNumberExistsValidator implements ConstraintValidator<PhoneNumb
    * @param constraintAnnotation the annotation instance for PhoneNumberExist
    */
   @Override
-  public void initialize(PhoneNumberExist constraintAnnotation) {}
+  public void initialize(PhoneNumberAlreadyExist constraintAnnotation) {}
 
   /**
    * Validates the phone number.
