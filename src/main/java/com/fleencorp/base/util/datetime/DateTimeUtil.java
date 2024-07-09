@@ -44,9 +44,31 @@ public class DateTimeUtil {
     return HOURS.convert(diffInMillis, MILLISECONDS);
   }
 
+  /**
+   * Converts a LocalDateTime object to milliseconds since the epoch.
+   *
+   * @param dateTime The LocalDateTime object to convert.
+   * @return The number of milliseconds since January 1, 1970, 00:00:00 GMT represented by the given date-time,
+   *         or 0 if the input is null.
+   */
   public static long toMilliseconds(LocalDateTime dateTime) {
-    if (dateTime != null) {
+    if (nonNull(dateTime)) {
       return dateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+    }
+    return 0;
+  }
+
+  /**
+   * Converts a duration into milliseconds from the current date and time.
+   *
+   * @param duration The duration to be converted.
+   * @return The equivalent duration in milliseconds from the current date and time,
+   *         or 0 if the duration is null.
+   */
+  public static long durationToMilliseconds(Duration duration) {
+    if (nonNull(duration)) {
+      LocalDateTime dateTime = LocalDateTime.now().plus(duration);
+      return toMilliseconds(dateTime);
     }
     return 0;
   }
