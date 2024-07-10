@@ -46,7 +46,7 @@ public class PhoneNumberAlreadyExistValidator implements ConstraintValidator<Pho
   @Override
   public boolean isValid(String phoneNumber, ConstraintValidatorContext context) {
     if (nonNull(phoneNumber)) {
-      return !(phoneService.isPhoneNumberExists(phoneNumber));
+      return !(phoneService.isPhoneNumberExist(phoneNumber));
     }
     return true;
   }

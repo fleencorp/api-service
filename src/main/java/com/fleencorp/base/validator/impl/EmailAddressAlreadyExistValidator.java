@@ -47,7 +47,7 @@ public class EmailAddressAlreadyExistValidator implements ConstraintValidator<Em
   @Override
   public boolean isValid(String emailAddress, ConstraintValidatorContext context) {
     if (nonNull(emailAddress)) {
-      return !(emailService.isEmailAddressExists(emailAddress));
+      return !(emailService.isEmailAddressExist(emailAddress));
     }
     return true;
   }
