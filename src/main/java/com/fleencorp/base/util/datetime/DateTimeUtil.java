@@ -86,8 +86,17 @@ public class DateTimeUtil {
     return LocalDateTime.now().plusHours(hour);
   }
 
-  public static LocalDateTime addMinutesFromNow(int minute) {
-    return LocalDateTime.now().plusMinutes(minute);
+  /**
+   * Adds a specified number of minutes to the current LocalDateTime.
+   *
+   * <p>This method calculates and returns a LocalDateTime object that represents
+   * the current date and time plus the specified number of minutes.</p>
+   *
+   * @param minutes the number of minutes to add to the current LocalDateTime
+   * @return LocalDateTime object representing the future time after adding minutes
+   */
+  public static LocalDateTime addMinutesFromNow(int minutes) {
+    return LocalDateTime.now().plusMinutes(minutes);
   }
 
   public static LocalDateTime toLocalDateTime(String date) {
