@@ -73,8 +73,24 @@ public class DateTimeUtil {
     return 0;
   }
 
+  /**
+   * Converts the given time units into milliseconds.
+   *
+   * <p>This method takes the time values in seconds, minutes, hours, and days,
+   * multiplies them with 1000 to convert them to milliseconds, and then multiplies
+   * the non-zero time values together to get the total time in milliseconds.</p>
+   *
+   * @param seconds the number of seconds
+   * @param minutes the number of minutes
+   * @param hours the number of hours
+   * @param days the number of days
+   * @return the total time in milliseconds
+   */
   public static Long getTimeInMillis(int seconds, int minutes, int hours, int days) {
+    // List of time values in milliseconds
     List<Integer> times = List.of(1000, seconds, minutes, hours, days);
+
+    // Filter non-zero time values and multiply them together
     return times
             .stream()
             .filter(time -> time > 0)
