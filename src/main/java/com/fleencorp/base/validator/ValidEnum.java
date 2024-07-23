@@ -19,6 +19,8 @@ public @interface ValidEnum {
 
   Class<? extends Enum<?>> enumClass();
 
+  boolean ignoreCase() default false;
+
   String message() default "must be any of enum {enumClass}";
 
   Class<?>[] groups() default {};
