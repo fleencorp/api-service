@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static java.util.Objects.nonNull;
+
 /**
  * The StringUtils contains implementations and methods for converting a number represented as a string to various type of numbers
  * for example an integer or whole number.
@@ -57,15 +59,17 @@ public class StringUtil {
    */
   public static Map<String, String> strToMap(String inputString, char keyValueSeparator, char pairSeparator) {
     Map<String, String> map = new HashMap<>();
-    // Split the input string into key-value pairs
-    String[] pairs = inputString.split(String.valueOf(pairSeparator));
+    if (nonNull(inputString)) {
+      // Split the input string into key-value pairs
+      String[] pairs = inputString.trim().split(String.valueOf(pairSeparator));
 
-    for (String pair : pairs) {
-      // Split each pair into key and value
-      String[] keyValue = pair.split(String.valueOf(keyValueSeparator));
-      if (keyValue.length == 2) {
-        // Add the key-value pair to the map after trimming whitespace
-        map.put(keyValue[0].trim(), keyValue[1].trim());
+      for (String pair : pairs) {
+        // Split each pair into key and value
+        String[] keyValue = pair.split(String.valueOf(keyValueSeparator));
+        if (keyValue.length == 2) {
+          // Add the key-value pair to the map after trimming whitespace
+          map.put(keyValue[0].trim(), keyValue[1].trim());
+        }
       }
     }
 
