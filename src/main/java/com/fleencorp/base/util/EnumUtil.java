@@ -17,8 +17,7 @@ public class EnumUtil {
   private static final char ENUM_VALUE_REPLACE = ' ';
 
   /**
-   * <p>Retrieves the ordinal values of an Enum class.</p>
-   * <br/>
+   * Retrieves the ordinal values of an Enum class.
    *
    * <p>This method retrieves and returns the ordinal values of the specified Enum class. It identifies the 'values' method
    * within the Enum class using reflection, retrieves all enum instances, and obtains their respective ordinal values. It
@@ -46,8 +45,7 @@ public class EnumUtil {
   }
 
   /**
-   * <p>Retrieves an enum constant of a specified type based on its ordinal value.</p>
-   * <br/>
+   * Retrieves an enum constant of a specified type based on its ordinal value.
    *
    * <p>This method fetches and returns an enum constant of a given Enum type based on its ordinal value. It retrieves all
    * enum constants of the specified type, then checks and retrieves the enum constant at the provided ordinal position.</p>
