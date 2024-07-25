@@ -71,4 +71,16 @@ public class StringUtil {
 
     return map;
   }
+
+  /**
+   * Converts a delimited string into a map.
+   * This method uses '=' as the key-value separator and ';' as the pair separator.
+   *
+   * @param inputString the input string to convert
+   * @return a map containing key-value pairs extracted from the input string
+   */
+  public static Map<String, String> strToMap(String inputString) {
+    // Use the helper method with default separators '=' and ';'
+    return strToMap(inputString, '=', ';');
+  }
 }
