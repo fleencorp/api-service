@@ -98,7 +98,7 @@ public class EnumUtil {
     }
 
     try {
-      return Enum.valueOf(enumType, value);
+      return Enum.valueOf(enumType, value.toUpperCase());
     } catch (IllegalArgumentException e) {
       return null;
     }
