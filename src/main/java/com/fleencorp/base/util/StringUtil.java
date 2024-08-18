@@ -87,4 +87,20 @@ public class StringUtil {
     // Use the helper method with default separators '=' and ';'
     return strToMap(inputString, '=', ';');
   }
+
+
+  /**
+   * Replaces the delimiter in the input string with the specified replacement.
+   *
+   * @param input       the original string to be transformed
+   * @param delimiter   the delimiter to split the string
+   * @param replacement the string to join the split parts
+   * @return the transformed string
+   */
+  public static String replaceWith(final String input, String delimiter, String replacement) {
+    if (input == null || delimiter == null || replacement == null) {
+      throw new IllegalArgumentException("Input, delimiter, and replacement must not be null");
+    }
+    return String.join(replacement, input.split(delimiter));
+  }
 }
