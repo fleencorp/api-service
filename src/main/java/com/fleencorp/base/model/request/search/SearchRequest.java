@@ -8,11 +8,14 @@ import lombok.experimental.SuperBuilder;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING;
 import static com.fleencorp.base.constant.base.PagingConstant.*;
+import static com.fleencorp.base.util.FleenUtil.areNotEmpty;
 import static com.fleencorp.base.util.FleenUtil.createPageable;
 import static com.fleencorp.base.util.datetime.DateFormatUtil.DATE;
+import static java.util.Objects.nonNull;
 
 /**
  * Represents a search request with pagination and sorting details.
@@ -86,5 +89,21 @@ public class SearchRequest {
   public void updatePageSize(Integer pageSize) {
     this.pageSize = pageSize;
     this.toPageable();
+  }
+
+  public boolean areAllDatesSet() {
+    return areNotEmpty(startDate, endDate);
+  }
+
+  public LocalDateTime getStartDateTime() {
+    return nonNull(startDate)
+      ? startDate.atStartOfDay()
+      : null;
+  }
+
+  public LocalDateTime getEndDateTime() {
+    return nonNull(endDate)
+      ? endDate.atStartOfDay()
+      : null;
   }
 }
