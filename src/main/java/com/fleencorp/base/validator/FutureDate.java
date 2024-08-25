@@ -18,5 +18,9 @@ public @interface FutureDate {
 
   Class<? extends Payload>[] payload() default {};
 
-  String pattern() default "yyyy-MM-dd";
+  String datePattern() default "yyyy-MM-dd";
+
+  String dateTimePattern() default "yyyy-MM-dd'T'HH:mm:ss";
+
+  boolean dateOnly() default false;
 }

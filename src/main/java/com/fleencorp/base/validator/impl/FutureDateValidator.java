@@ -21,6 +21,8 @@ import static java.util.Objects.nonNull;
 public class FutureDateValidator implements ConstraintValidator<FutureDate, String> {
 
   private String datePattern;
+  private String dateTimePattern;
+  private boolean dateOnly;
 
   /**
    * Initializes the validator. This method is a placeholder for any initialization logic,
@@ -30,25 +32,63 @@ public class FutureDateValidator implements ConstraintValidator<FutureDate, Stri
    */
   @Override
   public void initialize(FutureDate constraintAnnotation) {
-    datePattern = constraintAnnotation.pattern();
+    datePattern = constraintAnnotation.datePattern();
+    dateTimePattern = constraintAnnotation.dateTimePattern();
+    dateOnly = constraintAnnotation.dateOnly();
   }
 
   /**
-   * Validates whether the given date string represents a date in the future.
+   * Validates whether a given date string is valid according to the configured date or date-time pattern.
+   * This method delegates the validation to the {@link #validate(String)} method. If the date string is
+   * invalid or cannot be parsed, it returns {@code false}. If the date string is {@code null}, it returns
+   * {@code true} as it is considered valid.
    *
-   * @param date the date string to validate
-   * @param context context in which the constraint is evaluated
-   * @return {@code true} if the date string represents a future date, {@code false} otherwise
+   * @param date    The date string to be validated.
+   * @param context The context in which the constraint is evaluated (used by the validation framework).
+   * @return {@code true} if the date string is valid or {@code null};
+   *         {@code false} if the date string is invalid or cannot be parsed.
+   * @throws DateTimeParseException if the date string cannot be parsed according to the configured pattern.
    */
   public boolean isValid(String date, ConstraintValidatorContext context) {
     if (nonNull(date)) {
       try {
-        final DateTimeFormatter dtf = DateTimeFormatter.ofPattern(datePattern);
-        LocalDate after = LocalDate.parse(date, dtf);
-        return LocalDate.now().isBefore(after);
+        return validate(date);
       } catch (DateTimeParseException ignored) {}
       return false;
     }
     return true;
+  }
+
+  /**
+   * Validates whether a given date string is valid based on the configured date or date-time pattern.
+   * This method delegates the validation to the {@link #isValid(String, String)} method, using the appropriate
+   * pattern based on the {@code dateOnly} flag.
+   *
+   * @param date The date string to be validated.
+   * @return {@code true} if the date string is valid according to the configured pattern;
+   *         {@code false} otherwise.
+   */
+  public boolean validate(String date) {
+    if (dateOnly) {
+      return isValid(date, datePattern);
+    } else {
+      return isValid(date, dateTimePattern);
+    }
+  }
+
+  /**
+   * Validates whether a given date string matches the specified pattern and checks
+   * if the date is in the future compared to the current date.
+   *
+   * @param date    The date string to be validated.
+   * @param pattern The pattern against which the date string should be validated.
+   * @return {@code true} if the date is valid and is in the future compared to the current date;
+   *         {@code false} otherwise.
+   * @throws DateTimeParseException if the date string cannot be parsed according to the specified pattern.
+   */
+  private boolean isValid(String date, String pattern) {
+    final DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern);
+    LocalDate after = LocalDate.parse(date, dtf);
+    return LocalDate.now().isBefore(after);
   }
 }
