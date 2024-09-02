@@ -5,6 +5,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -61,7 +62,7 @@ public class FutureDateValidator implements ConstraintValidator<FutureDate, Stri
 
   /**
    * Validates whether a given date string is valid based on the configured date or date-time pattern.
-   * This method delegates the validation to the {@link #isValid(String, String)} method, using the appropriate
+   * This method delegates the validation to the {@link #isValidDate(String, String)}} and {@link #isValidDateTime(String, String)}} method, using the appropriate
    * pattern based on the {@code dateOnly} flag.
    *
    * @param date The date string to be validated.
@@ -70,9 +71,9 @@ public class FutureDateValidator implements ConstraintValidator<FutureDate, Stri
    */
   public boolean validate(String date) {
     if (dateOnly) {
-      return isValid(date, datePattern);
+      return isValidDate(date, datePattern);
     } else {
-      return isValid(date, dateTimePattern);
+      return isValidDateTime(date, dateTimePattern);
     }
   }
 
@@ -86,9 +87,15 @@ public class FutureDateValidator implements ConstraintValidator<FutureDate, Stri
    *         {@code false} otherwise.
    * @throws DateTimeParseException if the date string cannot be parsed according to the specified pattern.
    */
-  private boolean isValid(String date, String pattern) {
+  private boolean isValidDate(String date, String pattern) {
     final DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern);
     LocalDate after = LocalDate.parse(date, dtf);
     return LocalDate.now().isBefore(after);
+  }
+
+  private boolean isValidDateTime(String date, String pattern) {
+    final DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern);
+    LocalDateTime after = LocalDateTime.parse(date, dtf);
+    return LocalDateTime.now().isBefore(after);
   }
 }
