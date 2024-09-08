@@ -8,7 +8,6 @@ import com.fleencorp.base.util.security.AuthUtil;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
