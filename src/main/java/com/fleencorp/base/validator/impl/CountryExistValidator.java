@@ -1,6 +1,6 @@
 package com.fleencorp.base.validator.impl;
 
-import com.fleencorp.base.service.CountryService;
+import com.fleencorp.base.service.BasicCountryService;
 import com.fleencorp.base.validator.CountryExist;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import static java.util.Objects.nonNull;
 
 /**
-* Validator class that checks if a given country ID exists using the {@link CountryService}.
+* Validator class that checks if a given country ID exists using the {@link BasicCountryService}.
 * Implements the {@link ConstraintValidator} interface for the {@link CountryExist} annotation.
 *
 * @author Yusuf Alamu Musa
@@ -18,14 +18,14 @@ import static java.util.Objects.nonNull;
 @Component
 public class CountryExistValidator implements ConstraintValidator<CountryExist, String> {
 
-  private final CountryService service;
+  private final BasicCountryService service;
 
   /**
-  * Constructs a new CountryExistValidator with the specified {@link CountryService}.
+  * Constructs a new CountryExistValidator with the specified {@link BasicCountryService}.
   *
   * @param service the CountryService to use for checking if a country exists
   */
-  public CountryExistValidator(final CountryService service) {
+  public CountryExistValidator(final BasicCountryService service) {
     this.service = service;
   }
 
@@ -38,7 +38,7 @@ public class CountryExistValidator implements ConstraintValidator<CountryExist, 
   public void initialize(final CountryExist constraintAnnotation) {}
 
   /**
-  * Checks if the given country code is valid by verifying its existence using the {@link CountryService}.
+  * Checks if the given country code is valid by verifying its existence using the {@link BasicCountryService}.
   *
   * <p>If the country code is not null, the method attempts to parse it into a Long and checks if the country
   * exists using the CountryService. If the parsing fails or the country does not exist, the method returns false.

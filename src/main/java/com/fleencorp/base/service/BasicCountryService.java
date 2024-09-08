@@ -1,6 +1,6 @@
 package com.fleencorp.base.service;
 
-public interface CountryService {
+public interface BasicCountryService {
 
   boolean isCountryExists(String code);
 }
