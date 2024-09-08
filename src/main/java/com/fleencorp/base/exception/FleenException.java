@@ -1,4 +1,4 @@
-package com.fleencorp.base.exception.externalsystem;
+package com.fleencorp.base.exception;
 
 
 import lombok.Getter;
