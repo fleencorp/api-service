@@ -206,6 +206,18 @@ public class BaseAdapter {
     return initUriBuilder(urlBlocks).build().toUri();
   }
 
+  /**
+   * Builds a {@link URI} by constructing the base URI with specified endpoint blocks and appending query parameters.
+   *
+   * <p>This protected method initializes a URI builder with the given URL blocks, representing parts of the
+   * endpoint path. It then iterates over the provided query parameters, adding each as a query parameter to
+   * the URI. The resulting {@link URI} is built from the constructed path and query parameters.</p>
+   *
+   * @param queryParams a map of query parameters where the key is an {@link ApiParameter} and the value is the
+   *                    parameter's value to be included in the URI.
+   * @param urlBlocks   an array of {@link EndpointBlock} elements that define parts of the endpoint path.
+   * @return the constructed {@link URI} combining the base path and the specified query parameters.
+   */
   protected URI buildUri(final Map<ApiParameter, String> queryParams, final EndpointBlock... urlBlocks) {
     final UriComponentsBuilder uriComponentsBuilder = initUriBuilder(urlBlocks);
     queryParams.forEach((k, v) -> uriComponentsBuilder.queryParam(k.getValue(), v));
