@@ -8,6 +8,7 @@ import com.fleencorp.base.util.security.AuthUtil;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -114,6 +115,60 @@ public class BaseAdapter {
 
       return ResponseEntity.status(e.getStatusCode())
         .headers(errorHeaders).body((T) errorBody);
+    }
+  }
+
+  /**
+   * Executes an HTTP request to the specified URI with the given method, headers, and body,
+   * and returns the response as a {@link ResponseEntity} of the specified type.
+   *
+   * <p>This method performs an HTTP call using the configured {@link RestClient}, logging the request details
+   * including the URI, HTTP method, and request body. It constructs the request headers by adding any provided
+   * headers to the default headers. The response is returned as a {@link ResponseEntity} of the expected
+   * response type, specified by the {@link ParameterizedTypeReference}. In case of an HTTP error,
+   * it catches the {@link HttpStatusCodeException} and logs the error details, then returns an
+   * appropriate {@link ResponseEntity} containing the error status, headers, and body.</p>
+   *
+   * @param <T>           the type of the response body.
+   * @param uri           the {@link URI} to which the HTTP request is sent. Must not be {@code null}.
+   * @param method        the {@link HttpMethod} to use for the request. Must not be {@code null}.
+   * @param headers       a map of additional headers to include in the request, may be {@code null}.
+   * @param body          the request body to be sent, may be {@code null}. If {@code null}, an empty body is used.
+   * @param responseModel a {@link ParameterizedTypeReference} indicating the type of the response body. Must not be {@code null}.
+   * @return a {@link ResponseEntity} containing the response status, headers, and body of type {@code T}.
+   * @throws HttpStatusCodeException if the HTTP call results in an error response status.
+   */
+  public <T> ResponseEntity<T> doCall(@NonNull final URI uri, @NonNull final HttpMethod method,
+                                      @Nullable final Map<String, String> headers, @Nullable final Object body,
+                                      @NonNull final ParameterizedTypeReference<T> responseModel) {
+
+    log.info(String.format("HTTP call to url=%s with method=%s and body=%s", uri, method.name(),
+      getPayloadBodyAsString(body)));
+
+    final HttpHeaders requestHeaders = getHeaders();
+    if (headers != null) {
+      headers.forEach(requestHeaders::add);
+    }
+
+    try {
+      return restClient
+        .method(method)
+        .uri(uri)
+        .headers(newHeaders -> newHeaders.addAll(requestHeaders))
+        .body(getPayloadBodyAsString(body))
+        .retrieve()
+        .toEntity(responseModel);
+    } catch (final HttpStatusCodeException e) {
+      log.error(String.format(
+        "An error occurred while HTTP call to url=%s with method=%s and body=%s: %s", uri,
+        method.name(),
+        getPayloadBodyAsString(body), e.getMessage()));
+      final HttpHeaders errorHeaders = e.getResponseHeaders();
+      final String errorBody = e.getResponseBodyAsString();
+
+      return ResponseEntity.status(e.getStatusCode())
+        .headers(errorHeaders)
+        .body((T) errorBody);
     }
   }
 
