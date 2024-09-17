@@ -34,8 +34,7 @@ public class IsNumberValidator implements ConstraintValidator<IsNumber, String> 
     if (nonNull(number)) {
       try {
         return isParsable(number);
-      } catch (NumberFormatException ex) {
-      }
+      } catch (final Exception ignored) {}
       return false;
     }
     return true;
