@@ -60,12 +60,41 @@ public class FleenUtil {
     return asString(resource);
   }
 
-  private static String asString(Resource resource) {
+  /**
+   * Converts the content of the provided {@link Resource} into a {@link String}.
+   *
+   * <p>This method reads the content from the given resource using UTF-8 encoding and converts it into a string.
+   * It handles input streams by wrapping them in a {@link Reader} and copying the content using {@link FileCopyUtils}.</p>
+   *
+   * @param resource the resource from which content is to be read
+   * @return the content of the resource as a {@link String}
+   * @throws UncheckedIOException if an {@link IOException} occurs during reading
+   */
+  private static String asString(final Resource resource) {
     try (Reader reader = new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8)) {
       return FileCopyUtils.copyToString(reader);
     } catch (IOException e) {
       throw new UncheckedIOException(e);
     }
+  }
+
+  /**
+   * Validates whether the given string represents a valid number.
+   *
+   * <p>This method checks if the provided string is non-null and matches the regular expression for a valid number.
+   * The regular expression accommodates optional negative signs, integers, and decimal numbers.</p>
+   *
+   * <p>Valid formats include:</p>
+   * <ul>
+   *   <li>Integer numbers (e.g., "123", "-456")</li>
+   *   <li>Decimal numbers (e.g., "123.45", "-456.78")</li>
+   * </ul>
+   *
+   * @param input the string to be validated
+   * @return {@code true} if the input is non-null and matches the number format; {@code false} otherwise
+   */
+  public boolean isValidNumber(final String input) {
+    return nonNull(input) && input.matches("-?\\d+(\\.\\d+)?");
   }
 
   /**
