@@ -93,7 +93,7 @@ public class FleenUtil {
    * @param input the string to be validated
    * @return {@code true} if the input is non-null and matches the number format; {@code false} otherwise
    */
-  public boolean isValidNumber(final String input) {
+  public static boolean isValidNumber(final String input) {
     return nonNull(input) && input.matches("-?\\d+(\\.\\d+)?");
   }
 
