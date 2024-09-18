@@ -56,15 +56,37 @@ public class ExceptionUtil {
   }
 
   /**
-   * Throws a runtime exception supplied by the given {@link Supplier} if the specified condition is true.
+   * Checks if the provided condition is true. If so, throws a specified exception.
    *
-   * @param isTrue the condition to evaluate
-   * @param exceptionSupplier the supplier that provides the exception to be thrown if the condition is true
-   * @throws RuntimeException if {@code isTrue} is {@code true}, the exception provided by {@code exceptionSupplier} is thrown
+   * <p>This method validates a condition by checking if the boolean parameter {@code isTrue} is true.
+   * If the condition is met (i.e., {@code isTrue} is true), it throws an exception provided by the
+   * {@code exceptionSupplier}.</p>
+   *
+   * @param isTrue the condition to be checked; expected to be false to avoid throwing an exception
+   * @param exceptionSupplier a supplier that provides the exception to be thrown if the condition is true
+   * @throws RuntimeException if {@code isTrue} is true
    */
   public static void checkIsTrue(final boolean isTrue, final Supplier<? extends RuntimeException> exceptionSupplier) {
     if (isTrue) {
       throw exceptionSupplier.get();
     }
   }
+
+  /**
+   * Checks if the provided condition is false. If not, throws a specified exception.
+   *
+   * <p>This method validates a condition by checking if the boolean parameter {@code isFalse} is false.
+   * If the condition is not met (i.e., {@code isFalse} is true), it throws an exception provided by the
+   * {@code exceptionSupplier}.</p>
+   *
+   * @param isFalse the condition to be checked; expected to be false
+   * @param exceptionSupplier a supplier that provides the exception to be thrown if the condition is not false
+   * @throws RuntimeException if {@code isFalse} is not false
+   */
+  public static void checkIsFalse(final boolean isFalse, final Supplier<? extends RuntimeException> exceptionSupplier) {
+    if (!isFalse) {
+      throw exceptionSupplier.get();
+    }
+  }
+
 }
