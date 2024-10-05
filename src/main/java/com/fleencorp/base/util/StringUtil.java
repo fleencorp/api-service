@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 import static java.util.Objects.nonNull;
 
@@ -102,5 +103,37 @@ public class StringUtil {
       throw new IllegalArgumentException("Input, delimiter, and replacement must not be null");
     }
     return String.join(replacement, input.split(delimiter));
+  }
+
+  /**
+   * Checks if the given email address is valid using a standard email pattern.
+   *
+   * <p>This method validates an email address using a commonly accepted regular
+   * expression pattern for email addresses.</p>
+   *
+   * @param emailAddress The email address to validate.
+   * @return True if the email address matches the standard pattern, false otherwise.
+   */
+  public static boolean isValidEmail(String emailAddress) {
+    return isValidEmail(emailAddress, "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}");
+  }
+
+  /**
+   * Checks if the given email address is valid against a specified pattern.
+   *
+   * <p>This method validates an email address using a regular expression pattern.
+   * If both the email address and pattern are non-null, the pattern is compiled
+   * and applied to the email address.</p>
+   *
+   * @param emailAddress The email address to validate.
+   * @param emailValidPattern The regular expression pattern to use for validation.
+   * @return True if the email address matches the pattern, false otherwise.
+   */
+  public static boolean isValidEmail(String emailAddress, String emailValidPattern) {
+    if (nonNull(emailAddress) && nonNull(emailValidPattern)) {
+      Pattern pattern = Pattern.compile(emailValidPattern);
+      return pattern.matcher(emailAddress).matches();
+    }
+    return false;
   }
 }

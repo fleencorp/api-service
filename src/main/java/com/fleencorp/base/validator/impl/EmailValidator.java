@@ -28,7 +28,6 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
     pattern = Pattern.compile(constraintAnnotation.pattern());
   }
 
-
   /**
    * Validates if the provided email address matches the defined regex pattern.
    *
