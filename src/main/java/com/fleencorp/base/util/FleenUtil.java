@@ -221,5 +221,25 @@ public class FleenUtil {
     }
   }
 
+  /**
+   * Handles search results based on the total elements in the provided Page object.
+   * If the page contains elements, the {@code nonEmptySupplier} is executed to return the result.
+   * If the page is empty, the {@code emptySupplier} is executed instead.
+   *
+   * @param <T> The type of the result returned by the suppliers.
+   * @param page The Page object containing the search results to be evaluated.
+   * @param nonEmptySupplier The supplier to be invoked when the page contains elements.
+   * @param emptySupplier The supplier to be invoked when the page is empty.
+   * @return The result of the {@code nonEmptySupplier} if the page has elements,
+   *         or the result of the {@code emptySupplier} if the page is empty.
+   * @throws NullPointerException if any of the suppliers are null.
+   */
+  public static <T> T handleSearchResult(Page<?> page, Supplier<T> nonEmptySupplier, Supplier<T> emptySupplier) {
+    if (page.getTotalElements() > 0) {
+      return nonEmptySupplier.get();
+    } else {
+      return emptySupplier.get();
+    }
+  }
 
 }
