@@ -1,6 +1,7 @@
 package com.fleencorp.base.util;
 
 import com.fleencorp.base.constant.type.BooleanType;
+import com.fleencorp.base.model.response.base.ApiResponse;
 import com.fleencorp.base.model.view.search.SearchResultView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanWrapper;
@@ -234,7 +235,7 @@ public class FleenUtil {
    *         or the result of the {@code emptySupplier} if the page is empty.
    * @throws NullPointerException if any of the suppliers are null.
    */
-  public static <T> T handleSearchResult(Page<?> page, Supplier<T> nonEmptySupplier, Supplier<T> emptySupplier) {
+  public static <T extends ApiResponse> T handleSearchResult(Page<?> page, Supplier<T> nonEmptySupplier, Supplier<T> emptySupplier) {
     if (page.getTotalElements() > 0) {
       return nonEmptySupplier.get();
     } else {
