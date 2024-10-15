@@ -236,7 +236,7 @@ public class FleenUtil {
    * @throws NullPointerException if any of the suppliers are null.
    */
   public static <T extends ApiResponse> T handleSearchResult(Page<?> page, Supplier<T> nonEmptySupplier, Supplier<T> emptySupplier) {
-    if (page.getTotalElements() > 0) {
+    if (nonNull(page) && page.getTotalElements() > 0) {
       return nonEmptySupplier.get();
     } else {
       return emptySupplier.get();
