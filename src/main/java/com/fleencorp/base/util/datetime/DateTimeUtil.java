@@ -214,4 +214,5 @@ public class DateTimeUtil {
   private static String getTimePeriod(LocalDateTime dateTime) {
     return (dateTime.getHour() < 12) ? "AM" : "PM";
   }
+
 }
