@@ -11,16 +11,8 @@ import java.util.Map;
 @Setter
 public class FleenException extends RuntimeException {
 
-  public String getMessageCode() {
-    return "";
-  }
-
   protected String message = "";
   protected Object[] params = new Object[] {};
-
-  public Map<String, Object> getDetails() {
-    return new HashMap<>();
-  }
 
   public FleenException(Object...params) {
     super();
@@ -29,5 +21,13 @@ public class FleenException extends RuntimeException {
 
   public FleenException() {
     super();
+  }
+
+  public String getMessageCode() {
+    return "";
+  }
+
+  public Map<String, Object> getDetails() {
+    return new HashMap<>();
   }
 }

@@ -62,14 +62,16 @@ public class ErrorResponse {
    *
    * @param message the error message to be included in the response.
    * @param status  the HTTP status to be included in the response.
+   * @param details other details that might explain the error and an action to do
    * @return a new {@link ErrorResponse} instance with the specified message, status, reason, and timestamp.
    */
-  public static ErrorResponse of(String message, HttpStatus status) {
+  public static ErrorResponse of(String message, HttpStatus status, Map<String, Object> details) {
     return ErrorResponse.builder()
       .message(message)
       .status(status.value())
       .reason(status.getReasonPhrase())
       .timestamp(LocalDateTime.now())
+      .details(details)
       .build();
   }
 
