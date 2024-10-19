@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,8 +46,13 @@ public class ErrorResponse {
   @JsonProperty("timestamp")
   private LocalDateTime timestamp;
 
+  @Builder.Default
   @JsonProperty("fields")
   private List<Map<String, Object>> fieldErrors = new ArrayList<>();
+
+  @Builder.Default
+  @JsonProperty("details")
+  private Map<String, Object> details = new HashMap<>();
 
   /**
    * Creates an {@link ErrorResponse} with the specified message and HTTP status.
