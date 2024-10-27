@@ -18,6 +18,11 @@ public abstract class ApiResponse {
   @JsonIgnore
   abstract public String getMessageCode();
 
+  @JsonIgnore
+  public Object[] getParams() {
+    return new Object[] {};
+  }
+
   @JsonProperty("message")
   protected String message;
 }
