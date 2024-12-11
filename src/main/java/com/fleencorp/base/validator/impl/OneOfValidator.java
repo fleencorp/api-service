@@ -11,9 +11,13 @@ import java.util.stream.Stream;
 import static java.util.Objects.nonNull;
 
 /**
- * Validator class that checks if a given CharSequence matches one of the names of an enum.
+ * Validator that checks if a given {@link CharSequence} matches one of the allowed values specified
+ * in the {@link OneOf} annotation.
  *
- * @author Yusuf Alamu Musa
+ * <p>This class implements the {@link ConstraintValidator} interface to perform the validation logic
+ * based on the configuration in the {@link OneOf} annotation.</p>
+ *
+ * @author Yusuf Àlàmù Musa
  * @version 1.0
  */
 public class OneOfValidator implements ConstraintValidator<OneOf, CharSequence> {
@@ -32,11 +36,14 @@ public class OneOfValidator implements ConstraintValidator<OneOf, CharSequence> 
   @Override
   public void initialize(OneOf constraintAnnotation) {
     ignoreCase = constraintAnnotation.ignoreCase();
+
+    // If an enum class is specified, initialize accepted values from the enum constants
     if (constraintAnnotation.enumClass() != null) {
       Enum<?>[] enumConstants = constraintAnnotation.enumClass().getEnumConstants();
       initializeAcceptedValues(enumConstants);
     }
 
+    // If specific allowed values are provided, initialize accepted values from them
     if (constraintAnnotation.allowedValues() != null) {
       initializeAcceptedValues(constraintAnnotation.allowedValues());
     }
