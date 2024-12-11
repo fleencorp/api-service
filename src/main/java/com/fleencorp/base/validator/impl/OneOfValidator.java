@@ -100,9 +100,9 @@ public class OneOfValidator implements ConstraintValidator<OneOf, CharSequence> 
    *
    * @param values the values to be added, ignored if null.
    */
-  protected void initializeAcceptedValues(Object...values) {
+  protected void initializeAcceptedValues(String...values) {
     if (nonNull(values)) {
-      acceptedValues.addAll(Stream.of(values).map(Object::toString).toList());
+      acceptedValues.addAll(Stream.of(values).map(String::trim).toList());
     }
   }
 }
