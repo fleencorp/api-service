@@ -1,6 +1,6 @@
 package com.fleencorp.base.validator;
 
-import com.fleencorp.base.validator.impl.EnumValidator;
+import com.fleencorp.base.validator.impl.OneOfValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = EnumValidator.class)
+@Constraint(validatedBy = OneOfValidator.class)
 public @interface OneOf {
 
   String[] allowedValues() default {};
