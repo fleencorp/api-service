@@ -17,7 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = OneOfValidator.class)
 public @interface OneOf {
 
-  String[] allowedValues() default {};
+  Object[] allowedValues() default {};
 
   Class<? extends Enum<?>> enumClass() default DefaultEnum.class;
 
