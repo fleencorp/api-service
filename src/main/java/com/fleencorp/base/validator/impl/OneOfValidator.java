@@ -21,6 +21,14 @@ public class OneOfValidator implements ConstraintValidator<OneOf, CharSequence> 
   private final List<String> acceptedValues = new ArrayList<>();
   private boolean ignoreCase;
 
+  /**
+   * Initializes the validator with the values specified in the {@link OneOf} annotation.
+   *
+   * <p>This method sets the case sensitivity flag and adds the allowed values (either enum constants or specified values)
+   * to the list of accepted values for validation.</p>
+   *
+   * @param constraintAnnotation the {@link OneOf} annotation containing the configuration for validation.
+   */
   @Override
   public void initialize(OneOf constraintAnnotation) {
     ignoreCase = constraintAnnotation.ignoreCase();
@@ -34,6 +42,16 @@ public class OneOfValidator implements ConstraintValidator<OneOf, CharSequence> 
     }
   }
 
+  /**
+   * Validates the given value based on the accepted values.
+   *
+   * <p>If the value is not null, it checks whether the value matches any of the accepted values.
+   * If the value is null, it is considered valid.</p>
+   *
+   * @param value the value to validate.
+   * @param context the validation context.
+   * @return {@code true} if the value is valid, {@code false} otherwise.
+   */
   @Override
   public boolean isValid(CharSequence value, ConstraintValidatorContext context) {
     if (nonNull(value)) {
@@ -42,24 +60,40 @@ public class OneOfValidator implements ConstraintValidator<OneOf, CharSequence> 
     return true;
   }
 
+  /**
+   * Checks if the provided value matches any of the accepted values.
+   *
+   * <p>If {@code ignoreCase} is false, the comparison is case-sensitive.
+   * If {@code ignoreCase} is true, the value is compared in lowercase.</p>
+   *
+   * @param value the value to check.
+   * @return {@code true} if the value matches an accepted value, {@code false} otherwise.
+   */
   protected boolean checkIfValueTheSame(String value) {
-    for (String acceptedValue : acceptedValues) {
-      if (ignoreCase && acceptedValue.equalsIgnoreCase(value)) {
-        return true;
-      } else if (acceptedValue.equals(value)) {
-        return true;
-      }
+    if (!ignoreCase) {
+      return acceptedValues.contains(value);
     }
-    return false;
+
+    return acceptedValues.contains(value.toLowerCase());
   }
 
+  /**
+   * Initializes and adds the names of the provided enum constants to the accepted values list.
+   *
+   * @param enumConstants the enum constants to be added, ignored if null.
+   */
   protected void initializeAcceptedValues(Enum<?>... enumConstants) {
     if (nonNull(enumConstants)) {
       acceptedValues.addAll(Stream.of(enumConstants).map(Enum::name).toList());
     }
   }
 
-  protected void initializeAcceptedValues(String... values) {
+  /**
+   * Initializes and adds the provided values to the accepted values list after trimming them.
+   *
+   * @param values the values to be added, ignored if null.
+   */
+  protected void initializeAcceptedValues(String...values) {
     if (nonNull(values)) {
       acceptedValues.addAll(Stream.of(values).map(String::trim).toList());
     }
