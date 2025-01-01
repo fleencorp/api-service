@@ -7,6 +7,7 @@ import jakarta.validation.ConstraintValidatorContext;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 import static java.util.Objects.nonNull;
@@ -85,7 +86,13 @@ public class OneOfValidator implements ConstraintValidator<OneOf, CharSequence> 
       return acceptedValues.contains(value);
     }
 
-    return acceptedValues.contains(value.toLowerCase());
+    for (final String acceptedValue : acceptedValues) {
+      if (acceptedValue.toLowerCase(Locale.ROOT).equals(value.toLowerCase(Locale.ROOT))) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   /**
