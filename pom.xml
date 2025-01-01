@@ -9,6 +9,7 @@
     <name>Api-Service</name>
     <description>Api Service is a collection of classes and feature for use in Fleen Corp app development</description>
     <properties>
+        <java.version>22</java.version>
         <maven.compiler.source>22</maven.compiler.source>
         <maven.compiler.target>22</maven.compiler.target>
     </properties>
