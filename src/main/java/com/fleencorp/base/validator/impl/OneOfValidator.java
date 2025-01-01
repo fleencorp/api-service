@@ -5,6 +5,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -40,11 +41,13 @@ public class OneOfValidator implements ConstraintValidator<OneOf, CharSequence> 
     // If an enum class is specified, initialize accepted values from the enum constants
     if (constraintAnnotation.enumClass() != null) {
       Enum<?>[] enumConstants = constraintAnnotation.enumClass().getEnumConstants();
+      System.out.print(Arrays.toString(enumConstants));
       initializeAcceptedValues(enumConstants);
     }
 
     // If specific allowed values are provided, initialize accepted values from them
     if (constraintAnnotation.allowedValues() != null) {
+      System.out.println(Arrays.toString(constraintAnnotation.allowedValues()));
       initializeAcceptedValues(constraintAnnotation.allowedValues());
     }
   }
@@ -78,6 +81,7 @@ public class OneOfValidator implements ConstraintValidator<OneOf, CharSequence> 
    */
   protected boolean checkIfValueTheSame(String value) {
     if (!ignoreCase) {
+      System.out.println("The value to check is " + value);
       return acceptedValues.contains(value);
     }
 
