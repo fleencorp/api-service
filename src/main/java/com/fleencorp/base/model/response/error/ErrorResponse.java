@@ -30,6 +30,8 @@ import static com.fleencorp.base.util.datetime.DateFormatUtil.DATE_TIME;
 })
 public class ErrorResponse {
 
+  private static final String DEFAULT_MESSAGE = "An error has occurred";
+
   @JsonProperty("message")
   private String message;
 
