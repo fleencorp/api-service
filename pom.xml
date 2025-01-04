@@ -85,6 +85,11 @@
             <version>1.17.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.fleencorp.i18n</groupId>
+            <artifactId>localizer</artifactId>
+            <version>1.2.2</version>
+        </dependency>
 
     </dependencies>
 

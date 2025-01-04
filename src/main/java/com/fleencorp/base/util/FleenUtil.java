@@ -1,8 +1,8 @@
 package com.fleencorp.base.util;
 
 import com.fleencorp.base.constant.type.BooleanType;
-import com.fleencorp.base.model.response.base.ApiResponse;
 import com.fleencorp.base.model.view.search.SearchResultView;
+import com.fleencorp.localizer.model.response.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
