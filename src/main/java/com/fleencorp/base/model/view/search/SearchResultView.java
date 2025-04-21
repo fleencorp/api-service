@@ -41,7 +41,7 @@ public class SearchResultView {
   private String prevPageToken;
 
   @JsonProperty("has_value")
-  private boolean hasValue() {
+  public boolean hasValue() {
     return values != null && !values.isEmpty();
   }
 
