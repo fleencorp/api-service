@@ -40,6 +40,11 @@ public class SearchResultView {
   @JsonProperty("prev_page_token")
   private String prevPageToken;
 
+  @JsonProperty("has_value")
+  private boolean hasValue() {
+    return values != null && !values.isEmpty();
+  }
+
   private List<?> values;
 
   public void setPageTokens(String nextPageToken, String prevPageToken) {
