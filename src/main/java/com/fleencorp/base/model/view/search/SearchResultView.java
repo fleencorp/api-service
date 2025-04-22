@@ -2,10 +2,9 @@ package com.fleencorp.base.model.view.search;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_ABSENT;
@@ -13,6 +12,8 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_ABSENT;
 @Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonInclude(NON_ABSENT)
 public class SearchResultView {
 
@@ -45,7 +46,7 @@ public class SearchResultView {
     return values != null && !values.isEmpty();
   }
 
-  private List<?> values;
+  private List<?> values = new ArrayList<>();
 
   public void setPageTokens(String nextPageToken, String prevPageToken) {
     this.nextPageToken = nextPageToken;
@@ -62,6 +63,10 @@ public class SearchResultView {
         this.isFirst = false;
       }
     }
+  }
+
+  public static SearchResultView empty() {
+    return new SearchResultView();
   }
 
 }
