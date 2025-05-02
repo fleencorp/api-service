@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_ABSENT;
 
@@ -46,7 +46,8 @@ public class SearchResultView {
     return values != null && !values.isEmpty();
   }
 
-  private List<?> values = new ArrayList<>();
+  @JsonProperty("values")
+  private Collection<?> values = new ArrayList<>();
 
   public void setPageTokens(String nextPageToken, String prevPageToken) {
     this.nextPageToken = nextPageToken;

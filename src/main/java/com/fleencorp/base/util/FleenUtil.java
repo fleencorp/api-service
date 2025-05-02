@@ -22,6 +22,7 @@ import java.io.Reader;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -175,7 +176,7 @@ public class FleenUtil {
    * @param page   A Page object containing pagination details (can be null for non-paginated results).
    * @return A SearchResultView object containing paginated or non-paginated search results.
    */
-  public static SearchResultView toSearchResult(List<?> values, Page<?> page) {
+  public static SearchResultView toSearchResult(Collection<?> values, Page<?> page) {
     if (page != null) {
       return SearchResultView.builder()
         .isFirst(page.isFirst())
