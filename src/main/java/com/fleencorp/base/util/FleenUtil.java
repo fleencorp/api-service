@@ -1,7 +1,7 @@
 package com.fleencorp.base.util;
 
 import com.fleencorp.base.constant.type.BooleanType;
-import com.fleencorp.base.model.view.search.SearchResultView;
+import com.fleencorp.base.model.view.search.SearchResult;
 import com.fleencorp.localizer.model.response.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanWrapper;
@@ -23,7 +23,6 @@ import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -176,9 +175,9 @@ public class FleenUtil {
    * @param page   A Page object containing pagination details (can be null for non-paginated results).
    * @return A SearchResultView object containing paginated or non-paginated search results.
    */
-  public static SearchResultView toSearchResult(Collection<?> values, Page<?> page) {
+  public static SearchResult toSearchResult(Collection<?> values, Page<?> page) {
     if (page != null) {
-      return SearchResultView.builder()
+      return SearchResult.builder()
         .isFirst(page.isFirst())
         .isLast(page.isLast())
         .totalPages(page.getTotalPages())
@@ -188,7 +187,7 @@ public class FleenUtil {
         .values(values)
         .build();
     }
-    return SearchResultView.builder()
+    return SearchResult.builder()
       .values(values)
       .build();
   }

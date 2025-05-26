@@ -15,7 +15,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_ABSENT;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(NON_ABSENT)
-public class SearchResultView {
+public class SearchResult {
 
   @JsonProperty("page_no")
   private Integer pageNo;
@@ -66,8 +66,8 @@ public class SearchResultView {
     }
   }
 
-  public static SearchResultView empty() {
-    return new SearchResultView();
+  public static SearchResult empty() {
+    return new SearchResult();
   }
 
 }
