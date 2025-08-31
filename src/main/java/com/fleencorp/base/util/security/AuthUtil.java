@@ -29,7 +29,6 @@ public class AuthUtil {
   public static String stripBearerToken(@NotEmpty String token) {
     if (!token.startsWith(BEARER)) {
       String message = "Token is not a bearer token!";
-      log.error(message);
       throw new RuntimeException(message);
     }
     return token.substring(BEARER.length());
