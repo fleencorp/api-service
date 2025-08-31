@@ -1,7 +1,8 @@
 package com.fleencorp.base.util;
 
 import com.fleencorp.base.model.view.base.EnumView;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -10,9 +11,9 @@ import java.util.List;
 
 import static java.util.Objects.nonNull;
 
-@Slf4j
 public class EnumUtil {
 
+  private static final Logger log = LoggerFactory.getLogger(EnumUtil.class);
   private static final char ENUM_VALUE_SEPARATOR = '_';
   private static final char ENUM_VALUE_REPLACE = ' ';
 
@@ -73,11 +74,7 @@ public class EnumUtil {
       Enum<?>[] constants = enumClass.getEnumConstants();
 
       for (Enum<?> enumConst : constants) {
-        EnumView enumView = new EnumView();
-        enumView.setLabel(enumConst.toString()
-          .replaceAll(String.valueOf(ENUM_VALUE_SEPARATOR), String.valueOf(ENUM_VALUE_REPLACE)));
-        enumView.setName(enumConst.name());
-        views.add(enumView);
+
       }
     }
 

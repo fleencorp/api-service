@@ -1,6 +1,7 @@
 package com.fleencorp.base.util.datetime;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -12,8 +13,9 @@ import static java.util.Objects.nonNull;
 import static java.util.concurrent.TimeUnit.HOURS;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
-@Slf4j
 public class DateTimeUtil {
+
+  private static final Logger log = LoggerFactory.getLogger(DateTimeUtil.class);
 
   public static Date asDate(LocalDate localDate) {
     return Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());

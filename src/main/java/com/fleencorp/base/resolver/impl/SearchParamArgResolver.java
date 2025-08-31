@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fleencorp.base.model.request.search.SearchRequest;
 import com.fleencorp.base.resolver.SearchParam;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
@@ -29,9 +30,10 @@ import static java.util.Objects.nonNull;
  *
  * <p>The class is a Spring component and is designed to be automatically detected and registered in the Spring application context.
  */
-@Slf4j
 @Component
 public class SearchParamArgResolver implements HandlerMethodArgumentResolver {
+
+  private static final Logger log = LoggerFactory.getLogger(SearchParamArgResolver.class);
 
   private final ObjectMapper mapper;
 

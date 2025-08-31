@@ -1,16 +1,15 @@
 package com.fleencorp.base.model.view.base;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class EnumView {
 
   private String name;
   private String label;
+
 }

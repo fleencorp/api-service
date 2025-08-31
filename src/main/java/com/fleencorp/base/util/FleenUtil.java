@@ -3,7 +3,8 @@ package com.fleencorp.base.util;
 import com.fleencorp.base.constant.type.BooleanType;
 import com.fleencorp.base.model.view.search.SearchResult;
 import com.fleencorp.localizer.model.response.ApiResponse;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -33,9 +34,9 @@ import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.springframework.data.domain.Sort.Direction.ASC;
 
-@Slf4j
 public class FleenUtil {
 
+  private static final Logger log = LoggerFactory.getLogger(FleenUtil.class);
 
   public static String[] getNullPropertyNames(Object source) {
     if (source != null) {
@@ -166,30 +167,22 @@ public class FleenUtil {
       .build();
   }*/
 
-  /**
-   * Converts a list of values and a Page object into a standardized SearchResultView object.
-   * This method constructs a SearchResultView object, incorporating pagination and content details from a Page object.
-   *
-   * @param values A list of values retrieved from a database query or API for example REST.
-   * <br/>
-   * @param page   A Page object containing pagination details (can be null for non-paginated results).
-   * @return A SearchResultView object containing paginated or non-paginated search results.
-   */
-  public static SearchResult toSearchResult(Collection<?> values, Page<?> page) {
+  public static <V, T> SearchResult<V> toSearchResult(Collection<V> values, Page<T> page) {
     if (page != null) {
-      return SearchResult.builder()
-        .isFirst(page.isFirst())
-        .isLast(page.isLast())
-        .totalPages(page.getTotalPages())
-        .totalEntries(page.getTotalElements())
-        .pageNo(page.getNumber())
-        .pageSize(page.getSize())
-        .values(values)
-        .build();
+      SearchResult<V> searchResult = new SearchResult<>();
+      searchResult.setFirst(page.isFirst());
+      searchResult.setLast(page.isLast());
+      searchResult.setTotalPages(page.getTotalPages());
+      searchResult.setTotalEntries(page.getTotalElements());
+      searchResult.setPageNo(page.getNumber());
+      searchResult.setPageSize(page.getSize());
+      searchResult.setValues(values);
+      return searchResult;
     }
-    return SearchResult.builder()
-      .values(values)
-      .build();
+
+    SearchResult<V> searchResult = new SearchResult<>();
+    searchResult.setValues(values);
+    return searchResult;
   }
 
   /**

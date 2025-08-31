@@ -1,9 +1,7 @@
 package com.fleencorp.base.constant.type;
 
 import com.fleencorp.base.constant.base.ApiParameter;
-import lombok.Getter;
 
-@Getter
 public enum BooleanType implements ApiParameter {
 
   TRUE("true"),
@@ -15,4 +13,8 @@ public enum BooleanType implements ApiParameter {
     this.value = value;
   }
 
+  @Override
+  public String getValue() {
+    return value;
+  }
 }

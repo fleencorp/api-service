@@ -3,7 +3,8 @@ package com.fleencorp.base.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fleencorp.base.exception.FleenException;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import static java.util.Objects.nonNull;
@@ -22,9 +23,9 @@ import static java.util.Objects.nonNull;
  * @version 1.0
  */
 @Component
-@Slf4j
 public class JsonUtil {
 
+  private static final Logger log = LoggerFactory.getLogger(JsonUtil.class);
   private final ObjectMapper objectMapper;
 
   /**

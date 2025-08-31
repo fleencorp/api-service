@@ -1,6 +1,7 @@
 package com.fleencorp.base.util;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,8 +17,9 @@ import static java.util.Objects.nonNull;
  * @author Yusuf Alamu Musa
  * @version 1.0
  */
-@Slf4j
 public class StringUtil {
+
+  private static final Logger log = LoggerFactory.getLogger(StringUtil.class);
 
   private StringUtil() {}
 

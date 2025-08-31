@@ -3,8 +3,10 @@ package com.fleencorp.base.model.request.search;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
@@ -24,7 +26,6 @@ import static java.util.Objects.nonNull;
  * @author Yusuf Alamu Musa
  * @version 1.0
  */
-@SuperBuilder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -32,31 +33,24 @@ import static java.util.Objects.nonNull;
 public class SearchRequest {
 
   @JsonProperty("q")
-  @Builder.Default
   protected String q = "";
 
   @JsonProperty("page_no")
-  @Builder.Default
   protected Integer pageNo = DEFAULT_PAGE_NUMBER;
 
   @JsonProperty("next_page_token")
-  @Builder.Default
   protected String nextPageToken = null;
 
   @JsonProperty("previous_page_token")
-  @Builder.Default
   protected String previousPageToken = null;
 
   @JsonProperty("page_size")
-  @Builder.Default
   protected Integer pageSize = DEFAULT_PAGE_SIZE;
 
   @JsonProperty("sort_dir")
-  @Builder.Default
   protected String sortDir = DEFAULT_SORT_DIRECTION;
 
   @JsonProperty("sort_by")
-  @Builder.Default
   protected String sortBy = DEFAULT_SORT_BY;
 
   @JsonFormat(shape = STRING, pattern = DATE)
@@ -78,17 +72,21 @@ public class SearchRequest {
   @JsonIgnore
   private Pageable page;
 
+  public void setPage(Pageable page) {
+    this.page = page;
+  }
+
   /**
    * Converts the SearchRequest parameters into a Pageable object for pagination and sorting.
    */
   public void toPageable() {
     Pageable pageable = createPageable(pageNo, pageSize, sortBy, sortDir);
-    this.setPage(pageable);
+    setPage(pageable);
   }
 
-  public void updatePageSize(Integer pageSize) {
-    this.pageSize = pageSize;
-    this.toPageable();
+  public void updatePageSize(Integer size) {
+    pageSize = size;
+    toPageable();
   }
 
   public boolean areAllDatesSet() {

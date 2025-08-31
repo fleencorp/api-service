@@ -7,7 +7,8 @@ import com.fleencorp.base.constant.base.EndpointBlock;
 import com.fleencorp.base.util.security.AuthUtil;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -33,9 +34,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
  * @author Yusuf Alamu Musa
  * @version 1.0
  */
-@Slf4j
 @Setter
 public class BaseAdapter {
+
+  private static final Logger log = LoggerFactory.getLogger(BaseAdapter.class);
 
   /**
    * The base URL for the API endpoints.
