@@ -104,4 +104,96 @@ public class SearchRequest {
       ? endDate.atStartOfDay()
       : null;
   }
+
+  public String getQ() {
+    return q;
+  }
+
+  public void setQ(String q) {
+    this.q = q;
+  }
+
+  public Integer getPageNo() {
+    return pageNo;
+  }
+
+  public void setPageNo(Integer pageNo) {
+    this.pageNo = pageNo;
+  }
+
+  public String getNextPageToken() {
+    return nextPageToken;
+  }
+
+  public void setNextPageToken(String nextPageToken) {
+    this.nextPageToken = nextPageToken;
+  }
+
+  public String getPreviousPageToken() {
+    return previousPageToken;
+  }
+
+  public void setPreviousPageToken(String previousPageToken) {
+    this.previousPageToken = previousPageToken;
+  }
+
+  public Integer getPageSize() {
+    return pageSize;
+  }
+
+  public void setPageSize(Integer pageSize) {
+    this.pageSize = pageSize;
+  }
+
+  public String getSortDir() {
+    return sortDir;
+  }
+
+  public void setSortDir(String sortDir) {
+    this.sortDir = sortDir;
+  }
+
+  public String getSortBy() {
+    return sortBy;
+  }
+
+  public void setSortBy(String sortBy) {
+    this.sortBy = sortBy;
+  }
+
+  public LocalDate getStartDate() {
+    return startDate;
+  }
+
+  public void setStartDate(LocalDate startDate) {
+    this.startDate = startDate;
+  }
+
+  public LocalDate getEndDate() {
+    return endDate;
+  }
+
+  public void setEndDate(LocalDate endDate) {
+    this.endDate = endDate;
+  }
+
+  public LocalDate getBeforeDate() {
+    return beforeDate;
+  }
+
+  public void setBeforeDate(LocalDate beforeDate) {
+    this.beforeDate = beforeDate;
+  }
+
+  public LocalDate getAfterDate() {
+    return afterDate;
+  }
+
+  public void setAfterDate(LocalDate afterDate) {
+    this.afterDate = afterDate;
+  }
+
+  public Pageable getPage() {
+    return page;
+  }
 }
