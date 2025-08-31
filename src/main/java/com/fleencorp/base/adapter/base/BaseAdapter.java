@@ -37,7 +37,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 @Setter
 public class BaseAdapter {
 
-  private static final Logger log = LoggerFactory.getLogger(BaseAdapter.class);
+  protected static final Logger log = LoggerFactory.getLogger(BaseAdapter.class);
 
   /**
    * The base URL for the API endpoints.
