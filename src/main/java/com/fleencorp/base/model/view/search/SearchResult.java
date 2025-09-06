@@ -1,6 +1,5 @@
 package com.fleencorp.base.model.view.search;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -16,7 +15,6 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class SearchResult<T> {
 
   @JsonProperty("page_no")
@@ -32,10 +30,10 @@ public class SearchResult<T> {
   private Integer totalPages;
 
   @JsonProperty("is_last")
-  private boolean isLast;
+  private boolean last;
 
   @JsonProperty("is_first")
-  private boolean isFirst;
+  private boolean first;
 
   @JsonProperty("next_page_token")
   private String nextPageToken;
@@ -60,10 +58,10 @@ public class SearchResult<T> {
   public void setFirstAndLastStatus() {
     if (prevPageToken != null || nextPageToken != null) {
       if (this.nextPageToken == null) {
-        this.isLast = true;
+        this.last = true;
       }
       if (this.prevPageToken != null) {
-        this.isFirst = false;
+        this.last = false;
       }
     }
   }
@@ -89,12 +87,12 @@ public class SearchResult<T> {
     this.totalPages = totalPages;
   }
 
-  public void setLast(boolean last) {
-    isLast = last;
+  public void seFirst(boolean first) {
+    this.first = first;
   }
 
-  public void setFirst(boolean first) {
-    isFirst = first;
+  public void setLast(boolean last) {
+    this.last = last;
   }
 
   public void setValues(Collection<T> values) {
