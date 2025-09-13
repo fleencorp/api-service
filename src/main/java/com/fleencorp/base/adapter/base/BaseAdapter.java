@@ -24,6 +24,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Objects.nonNull;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 /**
@@ -103,7 +104,7 @@ public class BaseAdapter {
         .method(method)
         .uri(uri)
         .headers(newHeaders -> newHeaders.addAll(requestHeaders))
-        .body(getPayloadBodyAsString(body))
+        .body(nonNull(body) ? body : "")
         .retrieve()
         .toEntity(responseModel);
     } catch (final HttpStatusCodeException e) {
