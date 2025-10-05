@@ -33,20 +33,25 @@ public class ToTitleCaseConverter extends StdConverter<String, String> {
   * @return the converted string in title case
   */
   public static String toTitleCase(final String value) {
+    if (null == value || value.isBlank()) {
+      return value;
+    }
+
     final String trimmedValue = value.trim();
     final StringBuilder titleCaseValue = new StringBuilder();
     boolean nextTitleCase = true;
 
     for (final char c : trimmedValue.toCharArray())
       if (Character.isWhitespace(c)) {
-          nextTitleCase = true;
-          titleCaseValue.append(c);
+        nextTitleCase = true;
+        titleCaseValue.append(c);
       } else if (nextTitleCase) {
-          titleCaseValue.append(Character.toTitleCase(c));
-          nextTitleCase = false;
+        titleCaseValue.append(Character.toTitleCase(c));
+        nextTitleCase = false;
       } else {
         titleCaseValue.append(Character.toLowerCase(c));
       }
+
     return titleCaseValue.toString();
   }
 }
