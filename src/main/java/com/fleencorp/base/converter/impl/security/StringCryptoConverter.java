@@ -2,7 +2,6 @@ package com.fleencorp.base.converter.impl.security;
 
 import com.fleencorp.base.util.security.EncryptionUtils;
 import jakarta.persistence.AttributeConverter;
-import org.springframework.stereotype.Component;
 
 import static java.util.Objects.nonNull;
 
@@ -16,7 +15,6 @@ import static java.util.Objects.nonNull;
  * @author Yusuf Alamu Musa
  * @version 1.0
  */
-@Component
 public class StringCryptoConverter implements AttributeConverter<String, String> {
 
   private final EncryptionUtils encryptionUtils;

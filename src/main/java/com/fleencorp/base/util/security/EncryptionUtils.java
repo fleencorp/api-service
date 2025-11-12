@@ -5,8 +5,6 @@ import com.fleencorp.base.exception.security.EncryptionFailedException;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
@@ -31,7 +29,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * @author Yusuf Alamu Musa
  * @version 1.0
  */
-@Component
 public class EncryptionUtils {
 
   private static final Logger log = LoggerFactory.getLogger(EncryptionUtils.class);
@@ -40,7 +37,7 @@ public class EncryptionUtils {
   private static final String TRANSFORMATION = "AES/GCM/NoPadding";
   private static final String ALGORITHM = "AES";
 
-  public EncryptionUtils(@Value("${entity.field.encryption.key}") final String encryptionKey) {
+  public EncryptionUtils(final String encryptionKey) {
     this.encryptionKey = encryptionKey;
   }
 

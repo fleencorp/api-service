@@ -22,7 +22,6 @@ import static java.util.Objects.nonNull;
  * @author Yusuf Alamu Musa
  * @version 1.0
  */
-@Component
 public class JsonUtil {
 
   private static final Logger log = LoggerFactory.getLogger(JsonUtil.class);

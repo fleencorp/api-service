@@ -4,7 +4,6 @@ import com.fleencorp.base.service.PhoneService;
 import com.fleencorp.base.validator.PhoneNumberAlreadyExist;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.springframework.stereotype.Component;
 
 import static java.util.Objects.nonNull;
 
@@ -14,7 +13,6 @@ import static java.util.Objects.nonNull;
  * @author Yusuf Alamu Musa
  * @version 1.0
  */
-@Component
 public class PhoneNumberAlreadyExistValidator implements ConstraintValidator<PhoneNumberAlreadyExist, String> {
 
   private final PhoneService phoneService;

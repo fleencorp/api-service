@@ -4,7 +4,6 @@ import com.fleencorp.base.service.BasicCountryService;
 import com.fleencorp.base.validator.CountryExist;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.springframework.stereotype.Component;
 
 import static java.util.Objects.nonNull;
 
@@ -15,7 +14,6 @@ import static java.util.Objects.nonNull;
 * @author Yusuf Alamu Musa
 * @version 1.0
 */
-@Component
 public class CountryExistValidator implements ConstraintValidator<CountryExist, String> {
 
   private final BasicCountryService service;

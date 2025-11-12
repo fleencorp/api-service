@@ -4,7 +4,6 @@ import com.fleencorp.base.service.EmailService;
 import com.fleencorp.base.validator.EmailAddressAlreadyExist;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.springframework.stereotype.Component;
 
 import static java.util.Objects.nonNull;
 
@@ -13,7 +12,6 @@ import static java.util.Objects.nonNull;
  *
  * @author Yusuf Alamu Musa
  */
-@Component
 public class EmailAddressAlreadyExistValidator implements ConstraintValidator<EmailAddressAlreadyExist, String> {
 
   private final EmailService emailService;

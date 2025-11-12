@@ -1,29 +1,22 @@
 package com.fleencorp.base.util.security;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@Component
 public class PasswordUtil {
-
-  private static final Logger log = LoggerFactory.getLogger(PasswordUtil.class);
 
   private static final String LOWER_CASE = "abcdefghijklmnopqrstuvwxyz";
   private static final String UPPER_CASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   private static final String NUMBERS = "0123456789";
   private static final String SPECIAL_CHARACTERS = "!@#$%^&*()-_=+[]{};:,.<>/?";
 
-  public String generatePassword() {
+  public static String generatePassword() {
     return generatePassword(10);
   }
 
-  public String generatePassword(int length) {
+  public static String generatePassword(int length) {
     if (length < 8) {
       length = 8;
     }

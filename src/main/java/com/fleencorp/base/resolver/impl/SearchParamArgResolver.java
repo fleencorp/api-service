@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
-import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -30,7 +29,6 @@ import static java.util.Objects.nonNull;
  *
  * <p>The class is a Spring component and is designed to be automatically detected and registered in the Spring application context.
  */
-@Component
 public class SearchParamArgResolver implements HandlerMethodArgumentResolver {
 
   private static final Logger log = LoggerFactory.getLogger(SearchParamArgResolver.class);
