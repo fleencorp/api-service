@@ -120,6 +120,9 @@ public class BaseAdapter {
 
       return ResponseEntity.status(e.getStatusCode())
         .headers(errorHeaders).body((T) errorBody);
+    } catch (ResourceAccessException e) {
+      log.error("Connection error while calling {} {}: {}", method, uri, e.getMessage());
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }
 
