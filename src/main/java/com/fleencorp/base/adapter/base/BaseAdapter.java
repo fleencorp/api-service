@@ -12,10 +12,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -172,8 +174,13 @@ public class BaseAdapter {
       return ResponseEntity.status(e.getStatusCode())
         .headers(errorHeaders)
         .body((T) errorBody);
+    } catch (ResourceAccessException e) {
+      log.error("Connection error while calling {} {}: {}", method, uri, e.getMessage());
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }
+
+
 
   /**
    * Converts the payload body object to a string representation.
