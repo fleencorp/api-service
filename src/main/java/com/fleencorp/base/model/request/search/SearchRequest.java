@@ -3,12 +3,15 @@ package com.fleencorp.base.model.request.search;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.domain.Pageable;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -72,6 +75,22 @@ public class SearchRequest {
   @JsonIgnore
   private Pageable page;
 
+  @DecimalMin(value = "-90.0", message = "{user.location.latitude.DecimalMin}")
+  @DecimalMax(value = "90.0", message = "{user.location.latitude.DecimalMax}")
+  @JsonProperty("latitude")
+  protected Double latitude;
+
+  @DecimalMin(value = "-180.0", message = "{user.location.longitude.DecimalMin}")
+  @DecimalMax(value = "180.0", message = "{user.location.longitude.DecimalMax}")
+  @JsonProperty("longitude")
+  protected Double longitude;
+
+  @JsonProperty("radius")
+  protected Double radius = 0.0;
+
+  @JsonProperty("lastCreatedOn")
+  protected Instant lastCreatedOn;
+
   public void setPage(Pageable page) {
     this.page = page;
   }
@@ -103,6 +122,10 @@ public class SearchRequest {
     return nonNull(endDate)
       ? endDate.atStartOfDay()
       : null;
+  }
+
+  public Instant getLastCreatedOn() {
+    return nonNull(lastCreatedOn) ? lastCreatedOn : Instant.now();
   }
 
   public String getQ() {
@@ -195,5 +218,33 @@ public class SearchRequest {
 
   public Pageable getPage() {
     return page;
+  }
+
+  public Double getLatitude() {
+    return latitude;
+  }
+
+  public void setLatitude(Double latitude) {
+    this.latitude = latitude;
+  }
+
+  public Double getLongitude() {
+    return longitude;
+  }
+
+  public void setLongitude(Double longitude) {
+    this.longitude = longitude;
+  }
+
+  public Double getRadius() {
+    return radius;
+  }
+
+  public void setRadius(Double radius) {
+    this.radius = radius;
+  }
+
+  public void setLastCreatedOn(Instant lastCreatedOn) {
+    this.lastCreatedOn = lastCreatedOn;
   }
 }
