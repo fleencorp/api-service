@@ -56,6 +56,33 @@ public class ExceptionUtil {
   }
 
   /**
+   * Checks whether the provided collection of objects contains any null value and throws the supplied
+   * exception if a null is found. The method first returns immediately if the exception supplier itself
+   * is null, since no meaningful exception can be generated. It then validates that the collection
+   * varargs array is not null and throws the supplied exception if it is. After that, each element
+   * within the collection is examined in sequence, and if any element is null, the same supplied
+   * exception is thrown. This method is useful when multiple arguments need to be validated together
+   * before proceeding with further processing.
+   *
+   * @param exception a supplier that produces the exception to be thrown when a null value is detected
+   * @param collection a varargs set of objects to inspect for null values
+   */
+  public static void checkIsNullAny(final Supplier<? extends RuntimeException> exception, final Object...collection) {
+    // Return early if the exception supplier is null
+    if (isNull(exception)) {
+      return;
+    }
+
+    // Check if the collection itself is null and throw exception if so
+    checkIsNull(collection, exception);
+    // Iterate through each element in the collection
+    for (final Object value: collection) {
+      // Check if the element is null and throw exception if so
+      checkIsNull(value, exception);
+    }
+  }
+
+  /**
    * Checks if the provided condition is true. If so, throws a specified exception.
    *
    * <p>This method validates a condition by checking if the boolean parameter {@code isTrue} is true.
