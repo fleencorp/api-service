@@ -13,7 +13,7 @@ import static java.util.Objects.nonNull;
  * @author Yusuf Alamu Musa
  * @version 1.0
  */
-public class BooleanValidator implements ConstraintValidator<ValidBoolean, String> {
+public class BooleanValidator implements ConstraintValidator<ValidBoolean, Object> {
 
   /**
    * Initializes the validator. This implementation is a no-op.
@@ -31,7 +31,7 @@ public class BooleanValidator implements ConstraintValidator<ValidBoolean, Strin
    * @return {@code true} if the string is a valid boolean or is null; {@code false} otherwise.
    */
   @Override
-  public boolean isValid(String value, ConstraintValidatorContext context) {
+  public boolean isValid(Object value, ConstraintValidatorContext context) {
     if (nonNull(value)) {
       return isBoolean(value);
     }

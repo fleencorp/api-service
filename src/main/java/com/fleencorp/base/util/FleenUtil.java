@@ -189,11 +189,14 @@ public class FleenUtil {
    * Checks if a provided string represents a boolean value.
    * This method evaluates whether the given string matches the defined TRUE or FALSE boolean values.
    *
-   * @param value A string representing a potential boolean value.
+   * @param value A object representing a potential boolean value.
    * @return A boolean indicating if the provided string represents a boolean value (TRUE or FALSE).
    */
-  public static boolean isBoolean(String value) {
-    return BooleanType.TRUE.getValue().equalsIgnoreCase(value) || BooleanType.FALSE.getValue().equalsIgnoreCase(value);
+  public static boolean isBoolean(Object value) {
+    final String valueAsString = String.valueOf(value);
+    return
+      BooleanType.TRUE.getValue().equalsIgnoreCase(valueAsString) ||
+      BooleanType.FALSE.getValue().equalsIgnoreCase(valueAsString);
   }
 
   /**

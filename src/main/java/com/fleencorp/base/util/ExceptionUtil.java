@@ -67,7 +67,7 @@ public class ExceptionUtil {
    * @param exception a supplier that produces the exception to be thrown when a null value is detected
    * @param collection a varargs set of objects to inspect for null values
    */
-  public static void checkIsNullAny(final Supplier<? extends RuntimeException> exception, final Object...collection) {
+  public static void checkIsNullAny(final Supplier<? extends RuntimeException> exception, final Object[]...collection) {
     // Return early if the exception supplier is null
     if (isNull(exception)) {
       return;
