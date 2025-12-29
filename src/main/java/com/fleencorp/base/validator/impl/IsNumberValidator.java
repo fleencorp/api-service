@@ -12,7 +12,7 @@ import static org.apache.commons.lang3.math.NumberUtils.isParsable;
  *
  * @author Yusuf Alamu Musa
  */
-public class IsNumberValidator implements ConstraintValidator<IsNumber, String> {
+public class IsNumberValidator implements ConstraintValidator<IsNumber, Object> {
 
   /**
    * Initializes the validator.
@@ -30,10 +30,10 @@ public class IsNumberValidator implements ConstraintValidator<IsNumber, String> 
    * @return {@code true} if the string is a valid number; {@code false} otherwise.
    */
   @Override
-  public boolean isValid(String number, ConstraintValidatorContext context) {
+  public boolean isValid(Object number, ConstraintValidatorContext context) {
     if (nonNull(number)) {
       try {
-        return isParsable(number);
+        return isParsable(number.toString());
       } catch (final Exception ignored) {}
       return false;
     }
