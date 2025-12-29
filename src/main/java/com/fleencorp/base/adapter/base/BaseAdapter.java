@@ -123,7 +123,7 @@ public class BaseAdapter {
     } catch (ResourceAccessException e) {
       log.error("Connection error while calling {} {}: {}", method, uri, e.getMessage());
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-    }I
+    }
   }
 
   /**
