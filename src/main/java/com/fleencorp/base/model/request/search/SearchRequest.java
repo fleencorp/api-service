@@ -38,38 +38,38 @@ public class SearchRequest {
   @JsonProperty("q")
   protected String q = "";
 
-  @JsonProperty("page_no")
+  @JsonProperty("pageNo")
   protected Integer pageNo = DEFAULT_PAGE_NUMBER;
 
-  @JsonProperty("next_page_token")
+  @JsonProperty("nextPageToken")
   protected String nextPageToken = null;
 
-  @JsonProperty("previous_page_token")
+  @JsonProperty("previousPageToken")
   protected String previousPageToken = null;
 
-  @JsonProperty("page_size")
+  @JsonProperty("pageSize")
   protected Integer pageSize = DEFAULT_PAGE_SIZE;
 
-  @JsonProperty("sort_dir")
+  @JsonProperty("sortDir")
   protected String sortDir = DEFAULT_SORT_DIRECTION;
 
-  @JsonProperty("sort_by")
+  @JsonProperty("sortBy")
   protected String sortBy = DEFAULT_SORT_BY;
 
   @JsonFormat(shape = STRING, pattern = DATE)
-  @JsonProperty("start_date")
+  @JsonProperty("startDate")
   protected LocalDate startDate;
 
   @JsonFormat(shape = STRING, pattern = DATE)
-  @JsonProperty("end_date")
+  @JsonProperty("endDate")
   protected LocalDate endDate;
 
   @JsonFormat(shape = STRING, pattern = DATE)
-  @JsonProperty("before_date")
+  @JsonProperty("beforeDate")
   protected LocalDate beforeDate;
 
   @JsonFormat(shape = STRING, pattern = DATE)
-  @JsonProperty("after_date")
+  @JsonProperty("afterDate")
   protected LocalDate afterDate;
 
   @JsonIgnore
