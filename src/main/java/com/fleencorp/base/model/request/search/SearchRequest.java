@@ -137,7 +137,7 @@ public class SearchRequest {
   }
 
   public Integer getPageNo() {
-    return pageNo;
+    return nonNull(pageNo) && pageNo < 0 ? DEFAULT_PAGE_NUMBER : pageNo;
   }
 
   public void setPageNo(Integer pageNo) {
@@ -161,7 +161,7 @@ public class SearchRequest {
   }
 
   public Integer getPageSize() {
-    return nonNull(pageSize) && pageSize > DEFAULT_PAGE_SIZE ? pageSize : DEFAULT_PAGE_SIZE;
+    return nonNull(pageSize) && pageSize > MAX_PAGE_SIZE ? DEFAULT_PAGE_SIZE : pageSize;
   }
 
   public Integer getOriginalPageSize() {
