@@ -161,6 +161,10 @@ public class SearchRequest {
   }
 
   public Integer getPageSize() {
+    return nonNull(pageSize) && pageSize > DEFAULT_PAGE_SIZE ? pageSize : DEFAULT_PAGE_SIZE;
+  }
+
+  public Integer getOriginalPageSize() {
     return pageSize;
   }
 
