@@ -116,6 +116,18 @@ public class SearchRequest {
     return nonNull(latitude) && nonNull(longitude);
   }
 
+  public boolean hasLatitudeAndLongitude2() {
+    return latitude != null && longitude != null;
+  }
+
+  public boolean hasLatitude() {
+    return latitude != null;
+  }
+
+  public boolean hasLongitude() {
+    return longitude != null;
+  }
+
   public LocalDateTime getStartDateTime() {
     return nonNull(startDate)
       ? startDate.atStartOfDay()
