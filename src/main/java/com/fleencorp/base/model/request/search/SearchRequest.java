@@ -112,6 +112,10 @@ public class SearchRequest {
     return areNotEmpty(startDate, endDate);
   }
 
+  public boolean hasLatitudeAndLongitude() {
+    return nonNull(latitude) && nonNull(longitude);
+  }
+
   public LocalDateTime getStartDateTime() {
     return nonNull(startDate)
       ? startDate.atStartOfDay()
