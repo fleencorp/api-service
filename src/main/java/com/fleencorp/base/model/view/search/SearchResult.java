@@ -41,6 +41,9 @@ public class SearchResult<T> {
   @JsonProperty("prev_page_token")
   private String prevPageToken;
 
+  @JsonProperty("has_next")
+  private boolean hasNext;
+
   @JsonProperty("has_value")
   public boolean hasValue() {
     return values != null && !values.isEmpty();
@@ -70,7 +73,6 @@ public class SearchResult<T> {
     return new SearchResult<>();
   }
 
-
   public void setPageNo(Integer pageNo) {
     this.pageNo = pageNo;
   }
@@ -93,6 +95,10 @@ public class SearchResult<T> {
 
   public void setLast(boolean last) {
     this.last = last;
+  }
+
+  public void setHasNext(boolean hasNext) {
+    this.hasNext = hasNext;
   }
 
   public void setValues(Collection<T> values) {

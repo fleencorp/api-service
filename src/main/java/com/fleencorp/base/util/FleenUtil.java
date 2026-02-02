@@ -10,10 +10,7 @@ import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.util.FileCopyUtils;
 
 import java.beans.FeatureDescriptor;
@@ -184,6 +181,28 @@ public class FleenUtil {
     searchResult.setValues(values);
     return searchResult;
   }
+
+  public static <V, T> SearchResult<V> toSearchResult(Collection<V> values, Slice<T> slice) {
+    if (slice != null) {
+      SearchResult<V> searchResult = new SearchResult<>();
+      searchResult.setFirst(slice.isFirst());
+      searchResult.setLast(!slice.hasNext()); // If no next slice, it's last
+      searchResult.setHasNext(slice.hasNext());
+      searchResult.setPageNo(slice.getNumber());
+      searchResult.setPageSize(slice.getSize());
+      searchResult.setValues(values);
+      // totalEntries and totalPages are unknown for Slice
+      searchResult.setTotalEntries(null);
+      searchResult.setTotalPages(null);
+      return searchResult;
+    }
+
+    // Fallback for null slice
+    SearchResult<V> searchResult = new SearchResult<>();
+    searchResult.setValues(values);
+    return searchResult;
+  }
+
 
   /**
    * Checks if a provided string represents a boolean value.
