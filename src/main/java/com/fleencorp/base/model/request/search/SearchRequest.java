@@ -128,7 +128,7 @@ public class SearchRequest {
       : null;
   }
 
-  public Instant getLastCreatedOn() {
+  public Instant getDefaultLastCreatedOn() {
     return nonNull(lastCreatedOn) ? lastCreatedOn : Instant.now();
   }
 
