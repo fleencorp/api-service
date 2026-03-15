@@ -91,7 +91,7 @@ public class SearchRequest {
   @JsonProperty("lastCreatedOn")
   protected Instant lastCreatedOn;
 
-  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  @JsonProperty("remoteFriendly")
   private boolean remoteFriendly;
 
   public void setPage(Pageable page) {
