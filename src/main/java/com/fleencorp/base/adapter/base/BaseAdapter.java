@@ -243,6 +243,13 @@ public class BaseAdapter {
     return headers;
   }
 
+  protected Map<String, String> getAuthHeader(final String scheme, final String value) {
+    final Map<String, String> headers = new HashMap<>();
+    headers.put(HttpHeaders.AUTHORIZATION, scheme + " " + value);
+    return headers;
+  }
+
+
   /**
    * Constructs an HTTP header with a Bearer token authorization.
    *
