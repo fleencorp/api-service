@@ -169,6 +169,7 @@ public class FleenUtil {
       SearchResult<V> searchResult = new SearchResult<>();
       searchResult.setFirst(page.isFirst());
       searchResult.setLast(page.isLast());
+      searchResult.setHasNext(page.hasNext());
       searchResult.setTotalPages(page.getTotalPages());
       searchResult.setTotalEntries(page.getTotalElements());
       searchResult.setPageNo(page.getNumber());
