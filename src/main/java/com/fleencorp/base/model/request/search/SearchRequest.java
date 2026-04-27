@@ -94,6 +94,9 @@ public class SearchRequest {
   @JsonProperty("remoteFriendly")
   private boolean remoteFriendly;
 
+  @JsonProperty("isGlobal")
+  private boolean isGlobal;
+
   public void setPage(Pageable page) {
     this.page = page;
   }
