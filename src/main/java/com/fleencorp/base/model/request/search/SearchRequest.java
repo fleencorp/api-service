@@ -97,6 +97,9 @@ public class SearchRequest {
   @JsonProperty("isGlobal")
   private boolean isGlobal;
 
+  @JsonProperty("isNationwide")
+  private boolean isNationwide;
+
   public void setPage(Pageable page) {
     this.page = page;
   }
