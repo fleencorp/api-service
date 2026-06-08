@@ -217,7 +217,9 @@ public class BaseAdapter {
         urlBuilder.append(block.value());
       }
     }
-    return UriComponentsBuilder.fromHttpUrl(urlBuilder.toString());
+    // Spring Framework 7 removed UriComponentsBuilder.fromHttpUrl(String); fromUriString
+    // is the documented drop-in replacement (equivalent for a full http(s) base URL).
+    return UriComponentsBuilder.fromUriString(urlBuilder.toString());
   }
 
   /**
