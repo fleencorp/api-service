@@ -20,6 +20,7 @@ import static com.fleencorp.base.constant.base.PagingConstant.*;
 import static com.fleencorp.base.util.FleenUtil.areNotEmpty;
 import static com.fleencorp.base.util.FleenUtil.createPageable;
 import static com.fleencorp.base.util.datetime.DateFormatUtil.DATE;
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 /**
@@ -34,6 +35,8 @@ import static java.util.Objects.nonNull;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SearchRequest {
+
+  private static final int MAX_QUERY_LENGTH = 200;
 
   @JsonProperty("q")
   protected String q = "";
@@ -142,7 +145,13 @@ public class SearchRequest {
   }
 
   public String getQ() {
-    return q;
+    if (isNull(q)) {
+      return "";
+    }
+
+    return q.length() > MAX_QUERY_LENGTH
+      ? q.substring(0, MAX_QUERY_LENGTH)
+      : q;
   }
 
   public void setQ(String q) {
