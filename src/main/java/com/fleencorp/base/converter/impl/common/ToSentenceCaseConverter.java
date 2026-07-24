@@ -27,7 +27,7 @@ public class ToSentenceCaseConverter extends StdConverter<String, String> {
    * @return the converted string with only the first letter capitalized
    */
   public static String toSentenceCase(final String value) {
-    if (value == null || value.isEmpty()) {
+    if (value == null || value.isBlank()) {
       return value;
     }
 
