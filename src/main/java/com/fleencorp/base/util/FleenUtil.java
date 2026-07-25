@@ -239,6 +239,22 @@ public class FleenUtil {
   }
 
   /**
+   * Sets a value using a setter, including when the supplied value is {@code null}.
+   *
+   * <p>This generic helper method takes a supplier that provides a value and a
+   * setter that consumes the value. Unlike {@link #setIfNonNull(Supplier, Consumer)},
+   * the setter is always invoked, regardless of whether the supplied value is
+   * {@code null}.
+   *
+   * @param <T> The type of the value.
+   * @param supplier A {@link Supplier} that provides the value, which may be {@code null}.
+   * @param setter A {@link Consumer} that consumes the supplied value, including {@code null}.
+   */
+  public static <T> void setNullable(Supplier<T> supplier, Consumer<T> setter) {
+    setter.accept(supplier.get());
+  }
+
+  /**
    * Handles search results based on the total elements in the provided Page object.
    * If the page contains elements, the {@code nonEmptySupplier} is executed to return the result.
    * If the page is empty, the {@code emptySupplier} is executed instead.
