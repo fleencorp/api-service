@@ -144,14 +144,26 @@ public class SearchRequest {
     return nonNull(lastCreatedOn) ? lastCreatedOn : Instant.now();
   }
 
+  /**
+   * Returns a normalized version of the search query.
+   *
+   * <p>If the query is {@code null}, this method returns an empty string. Otherwise,
+   * it trims leading and trailing whitespace, collapses consecutive whitespace
+   * characters into a single space, and truncates the result to
+   * {@code MAX_QUERY_LENGTH} characters if necessary.
+   *
+   * @return the normalized query, or an empty string if the original query is {@code null}
+   */
   public String getQ() {
     if (isNull(q)) {
       return "";
     }
 
-    return q.length() > MAX_QUERY_LENGTH
-      ? q.substring(0, MAX_QUERY_LENGTH)
-      : q;
+    final String normalized = q.strip().replaceAll("\\s+", " ");
+
+    return normalized.length() > MAX_QUERY_LENGTH
+      ? normalized.substring(0, MAX_QUERY_LENGTH).strip()
+      : normalized;
   }
 
   public void setQ(String q) {
