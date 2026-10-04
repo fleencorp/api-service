@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
@@ -27,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static java.util.Objects.nonNull;
+import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 /**
@@ -184,6 +186,43 @@ public class BaseAdapter {
   }
 
 
+
+  /**
+   * Posts a form-encoded body ({@code application/x-www-form-urlencoded}) to the given URI.
+   *
+   * <p>For APIs that take credentials as POST parameters (for example Google reCAPTCHA's siteverify).
+   * Unlike {@link #doCall(URI, HttpMethod, Map, Object, Class)}, the body is not logged — the log line
+   * carries the URL and the number of form fields only, so secrets and tokens sent this way never reach
+   * a log. Errors come back the same way {@code doCall} returns them.</p>
+   *
+   * @param uri           the URI to post to
+   * @param form          the form fields to send
+   * @param responseModel the type of the response body
+   * @return ResponseEntity containing the response data
+   */
+  @SuppressWarnings("unchecked")
+  public <T> ResponseEntity<T> doFormPost(@NonNull final URI uri, @NonNull final MultiValueMap<String, String> form,
+                                          @NonNull final Class<T> responseModel) {
+    log.info("HTTP call to url={} with method=POST and a form body of {} field(s), values not logged", uri, form.size());
+
+    try {
+      return restClient
+        .post()
+        .uri(uri)
+        .contentType(APPLICATION_FORM_URLENCODED)
+        .body(form)
+        .retrieve()
+        .toEntity(responseModel);
+    } catch (final HttpStatusCodeException e) {
+      log.error("An error occurred while HTTP call to url={} with method=POST: {}", uri, e.getMessage());
+      return ResponseEntity.status(e.getStatusCode())
+        .headers(e.getResponseHeaders())
+        .body((T) e.getResponseBodyAsString());
+    } catch (final ResourceAccessException e) {
+      log.error("Connection error while calling POST {}: {}", uri, e.getMessage());
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
 
   /**
    * Converts the payload body object to a string representation.
