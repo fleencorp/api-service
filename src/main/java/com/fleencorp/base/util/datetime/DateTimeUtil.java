@@ -17,20 +17,56 @@ public class DateTimeUtil {
 
   private static final Logger log = LoggerFactory.getLogger(DateTimeUtil.class);
 
+  /**
+   * The start of the day, read in the JVM's default zone — UTC on the backend, whatever the viewer's zone. Prefer the
+   * overload that takes a {@link ZoneId}.
+   */
   public static Date asDate(LocalDate localDate) {
-    return Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+    return asDate(localDate, ZoneId.systemDefault());
   }
 
+  /** The start of the day in {@code zone}. */
+  public static Date asDate(LocalDate localDate, ZoneId zone) {
+    return Date.from(localDate.atStartOfDay().atZone(zone).toInstant());
+  }
+
+  /**
+   * The wall time, read in the JVM's default zone — UTC on the backend, whatever the viewer's zone. Prefer the
+   * overload that takes a {@link ZoneId}.
+   */
   public static Date asDate(LocalDateTime localDateTime) {
-    return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+    return asDate(localDateTime, ZoneId.systemDefault());
   }
 
+  /** The wall time in {@code zone}. */
+  public static Date asDate(LocalDateTime localDateTime, ZoneId zone) {
+    return Date.from(localDateTime.atZone(zone).toInstant());
+  }
+
+  /**
+   * The calendar date of the moment in the JVM's default zone — UTC on the backend, whatever the viewer's zone. Prefer the
+   * overload that takes a {@link ZoneId}.
+   */
   public static LocalDate asLocalDate(Date date) {
-    return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+    return asLocalDate(date, ZoneId.systemDefault());
   }
 
+  /** The calendar date of the moment in {@code zone}. */
+  public static LocalDate asLocalDate(Date date, ZoneId zone) {
+    return Instant.ofEpochMilli(date.getTime()).atZone(zone).toLocalDate();
+  }
+
+  /**
+   * The wall time of the moment in the JVM's default zone — UTC on the backend, whatever the viewer's zone. Prefer the
+   * overload that takes a {@link ZoneId}.
+   */
   public static LocalDateTime asLocalDateTime(Date date) {
-    return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
+    return asLocalDateTime(date, ZoneId.systemDefault());
+  }
+
+  /** The wall time of the moment in {@code zone}. */
+  public static LocalDateTime asLocalDateTime(Date date, ZoneId zone) {
+    return Instant.ofEpochMilli(date.getTime()).atZone(zone).toLocalDateTime();
   }
 
   public static long toMilliseconds(LocalDateTime dateTime, String timezone) {
@@ -47,7 +83,8 @@ public class DateTimeUtil {
   }
 
   /**
-   * Converts a LocalDateTime object to milliseconds since the epoch.
+   * Converts a LocalDateTime object to milliseconds since the epoch, reading it in the JVM's
+   * default zone (UTC on the backend); {@link #toMilliseconds(LocalDateTime, String)} takes the zone.
    *
    * @param dateTime The LocalDateTime object to convert.
    * @return The number of milliseconds since January 1, 1970, 00:00:00 GMT represented by the given date-time,

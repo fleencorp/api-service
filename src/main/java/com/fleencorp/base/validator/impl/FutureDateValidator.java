@@ -4,8 +4,10 @@ import com.fleencorp.base.validator.FutureDate;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -14,6 +16,11 @@ import static java.util.Objects.nonNull;
 
 /**
  * Validator class to check if a date string represents a future date.
+ *
+ * <p>A value that carries its zone — an ISO instant or offset date-time such as
+ * {@code 2026-10-09T15:00:00Z} or {@code 2026-10-09T16:00:00+01:00} — is compared as that exact
+ * moment. A zone-less value (the configured patterns) is compared with "now" in the JVM's zone,
+ * which is UTC on the backend: send the zone when the value means a moment.</p>
  * This class implements {@link ConstraintValidator} and uses the {@link FutureDate} annotation.
  *
  * @author Yusuf Alamu Musa
@@ -24,6 +31,16 @@ public class FutureDateValidator implements ConstraintValidator<FutureDate, Stri
   private String datePattern;
   private String dateTimePattern;
   private boolean dateOnly;
+  private final Clock clock;
+
+  public FutureDateValidator() {
+    this(Clock.systemDefaultZone());
+  }
+
+  /** For tests: "now" and the zone a zone-less value is read in. */
+  FutureDateValidator(final Clock clock) {
+    this.clock = clock;
+  }
 
   /**
    * Initializes the validator. This method is a placeholder for any initialization logic,
@@ -70,6 +87,10 @@ public class FutureDateValidator implements ConstraintValidator<FutureDate, Stri
    *         {@code false} otherwise.
    */
   public boolean validate(String date) {
+    final OffsetDateTime moment = parseMoment(date);
+    if (nonNull(moment)) {
+      return clock.instant().isBefore(moment.toInstant());
+    }
     if (dateOnly) {
       return isValidDate(date, datePattern);
     } else {
@@ -90,12 +111,24 @@ public class FutureDateValidator implements ConstraintValidator<FutureDate, Stri
   private boolean isValidDate(String date, String pattern) {
     final DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern);
     LocalDate after = LocalDate.parse(date, dtf);
-    return LocalDate.now().isBefore(after);
+    return LocalDate.now(clock).isBefore(after);
   }
 
   private boolean isValidDateTime(String date, String pattern) {
     final DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern);
     LocalDateTime after = LocalDateTime.parse(date, dtf);
-    return LocalDateTime.now().isBefore(after);
+    return LocalDateTime.now(clock).isBefore(after);
+  }
+
+  /**
+   * Reads a value that carries its own zone ({@code …Z} or {@code …+01:00}); {@code null} for any
+   * other value, which the configured patterns then read.
+   */
+  private static OffsetDateTime parseMoment(final String date) {
+    try {
+      return OffsetDateTime.parse(date, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+    } catch (final DateTimeParseException e) {
+      return null;
+    }
   }
 }

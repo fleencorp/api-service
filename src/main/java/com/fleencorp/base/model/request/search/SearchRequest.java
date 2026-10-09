@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 import static com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING;
 import static com.fleencorp.base.constant.base.PagingConstant.*;
@@ -66,6 +67,17 @@ public class SearchRequest {
   @JsonFormat(shape = STRING, pattern = DATE)
   @JsonProperty("endDate")
   protected LocalDate endDate;
+
+  /**
+   * The start of a range as an exact moment ({@code 2026-10-01T00:00:00Z}, or with the viewer's
+   * offset). Preferred over {@link #startDate}, a calendar date that can only be read in one zone.
+   */
+  @JsonProperty("from")
+  protected Instant from;
+
+  /** The end of a range as an exact moment, inclusive. Preferred over {@link #endDate}. */
+  @JsonProperty("to")
+  protected Instant to;
 
   @JsonFormat(shape = STRING, pattern = DATE)
   @JsonProperty("beforeDate")
@@ -128,16 +140,49 @@ public class SearchRequest {
     return nonNull(latitude) && nonNull(longitude);
   }
 
+  /**
+   * The first moment of {@link #startDate}, as a wall time. Read as UTC by the backend (its JVM runs
+   * in UTC), so a day is a UTC day; send {@link #from} for a day in the viewer's own zone.
+   */
   public LocalDateTime getStartDateTime() {
     return nonNull(startDate)
       ? startDate.atStartOfDay()
       : null;
   }
 
+  /**
+   * The last moment of {@link #endDate}, as a wall time, so the end day is part of the range: a
+   * range of 1 to 3 October includes 3 October. It is the last microsecond — the precision
+   * Postgres keeps — so an inclusive {@code BETWEEN} stops short of the next day.
+   */
   public LocalDateTime getEndDateTime() {
     return nonNull(endDate)
-      ? endDate.atStartOfDay()
+      ? endDate.plusDays(1).atStartOfDay().minusNanos(1_000)
       : null;
+  }
+
+  /**
+   * The start of the range: {@link #from} when sent, otherwise the start of {@link #startDate} as
+   * a UTC day; {@code null} when neither is set.
+   */
+  public Instant getRangeStart() {
+    if (nonNull(from)) {
+      return from;
+    }
+    final LocalDateTime start = getStartDateTime();
+    return nonNull(start) ? start.toInstant(ZoneOffset.UTC) : null;
+  }
+
+  /**
+   * The end of the range, inclusive: {@link #to} when sent, otherwise the end of {@link #endDate}
+   * as a UTC day; {@code null} when neither is set.
+   */
+  public Instant getRangeEnd() {
+    if (nonNull(to)) {
+      return to;
+    }
+    final LocalDateTime end = getEndDateTime();
+    return nonNull(end) ? end.toInstant(ZoneOffset.UTC) : null;
   }
 
   public Instant getDefaultLastCreatedOn() {

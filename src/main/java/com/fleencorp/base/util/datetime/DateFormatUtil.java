@@ -35,13 +35,22 @@ public class DateFormatUtil {
   /**
    * Date-time format with milliseconds and the timezone represented as 'Z' (UTC).
    * Example: 2024-10-05T14:30:00.123Z
+   *
+   * @deprecated the {@code 'Z'} is a quoted letter, not a zone: formatting a value that is not
+   *     already UTC writes the wrong moment, and nothing checks. Format an {@code Instant} with
+   *     {@link java.time.format.DateTimeFormatter#ISO_INSTANT} instead.
    */
+  @Deprecated
   public static final String DATE_TIME_WITH_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
   /**
    * Date-time format with nanoseconds and the timezone represented as 'Z' (UTC).
    * Example: 2024-10-05T14:30:00.123456789Z
+   *
+   * @deprecated as {@link #DATE_TIME_WITH_TIMEZONE}: use
+   *     {@link java.time.format.DateTimeFormatter#ISO_INSTANT} on an {@code Instant}.
    */
+  @Deprecated
   public static final String DATE_TIME_WITH_TIMEZONE_NANOSECOND = "yyyy-MM-dd'T'HH:mm:ss.nnnnnnn'Z'";
 
   /**
